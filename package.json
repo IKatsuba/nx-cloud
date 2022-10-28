@@ -1,0 +1,19 @@
+{
+  "name": "nx-cloud",
+  "version": "0.0.0",
+  "license": "MIT",
+  "scripts": {
+    "start": "nx serve",
+    "build": "nx build",
+    "test": "nx test"
+  },
+  "private": true,
+  "dependencies": {},
+  "devDependencies": {
+    "nx": "15.0.4",
+    "@nrwl/cli": "15.0.4",
+    "@nrwl/workspace": "15.0.4",
+    "typescript": "~4.8.2",
+    "prettier": "^2.6.2"
+  }
+}
