@@ -14,7 +14,16 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@nx-cloud/api/org-and-workspace": [
+        "libs/api/org-and-workspace/src/index.ts"
+      ],
+      "@nx-cloud/api/report-client-error": [
+        "libs/api/report-client-error/src/index.ts"
+      ],
+      "@nx-cloud/api/runs": ["libs/api/runs/src/index.ts"],
+      "@nx-cloud/api/save-metrics": ["libs/api/save-metrics/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }
