@@ -1,29 +1,87 @@
 import { Injectable } from '@nestjs/common';
-import * as S3 from 'aws-sdk/clients/s3';
+import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
+import {
+  GetObjectCommand,
+  HeadObjectCommand,
+  PutObjectCommand,
+  S3Client,
+} from '@aws-sdk/client-s3';
+import {
+  catchError,
+  defer,
+  lastValueFrom,
+  map,
+  Observable,
+  of,
+  switchMap,
+} from 'rxjs';
+import { HttpService } from '@nestjs/axios';
 
 @Injectable()
 export class S3Service {
-  client: S3 = new S3({
-    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-    region: process.env.AWS_REGION,
+  constructor(private httpService: HttpService) {}
+
+  private client = new S3Client({
     endpoint: process.env.AWS_S3_ENDPOINT_URL,
+    region: process.env.AWS_REGION,
+    credentials: {
+      accessKeyId: process.env.AWS_S3_ACCESS_KEY_ID,
+      secretAccessKey: process.env.AWS_S3_SECRET_ACCESS_KEY,
+    },
   });
 
-  createGetAndPutSignedUrl(hash: string): { get: string; put: string } {
-    const getSignedUrl = this.client.getSignedUrl('getObject', {
+  async createGetAndPutSignedUrl(
+    hash: string
+  ): Promise<{ [key: string]: { get: string; put: string } }> {
+    const signedUrlForGet = (await lastValueFrom(this.hasObject(hash)))
+      ? await getSignedUrl(
+          this.client,
+          new GetObjectCommand({
+            Bucket: process.env.AWS_S3_BUCKET_NAME,
+            Key: hash,
+          }),
+          {
+            expiresIn: 18000,
+          }
+        )
+      : null;
+
+    const putCommand = new PutObjectCommand({
       Bucket: process.env.AWS_S3_BUCKET_NAME,
       Key: hash,
-      Expires: 60 * 60,
     });
-    const putSignedUrl = this.client.getSignedUrl('putObject', {
-      Bucket: process.env.AWS_S3_BUCKET_NAME,
-      Key: hash,
-      Expires: 60 * 60,
+
+    const signedUrlForPut = await getSignedUrl(this.client, putCommand, {
+      expiresIn: 18000,
     });
+
     return {
-      get: getSignedUrl,
-      put: putSignedUrl,
+      [hash]: {
+        get: signedUrlForGet,
+        put: signedUrlForPut,
+      },
     };
+  }
+
+  hasObject(hash?: string): Observable<boolean> {
+    if (!hash) {
+      return of(false);
+    }
+
+    return defer(() => {
+      const command = new HeadObjectCommand({
+        Bucket: process.env.AWS_S3_BUCKET_NAME,
+        Key: hash,
+      });
+
+      return getSignedUrl(this.client, command, { expiresIn: 18000 });
+    }).pipe(
+      switchMap((headUrl) =>
+        this.httpService.head(headUrl).pipe(
+          map((req) => req.status >= 200 && req.status < 400),
+          catchError((error) => of(false))
+        )
+      )
+    );
   }
 }
