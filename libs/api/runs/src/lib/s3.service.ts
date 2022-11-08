@@ -6,34 +6,26 @@ import {
   PutObjectCommand,
   S3Client,
 } from '@aws-sdk/client-s3';
-import {
-  catchError,
-  defer,
-  lastValueFrom,
-  map,
-  Observable,
-  of,
-  switchMap,
-} from 'rxjs';
+import { catchError, lastValueFrom, map, of } from 'rxjs';
 import { HttpService } from '@nestjs/axios';
 
 @Injectable()
 export class S3Service {
-  constructor(private httpService: HttpService) {}
-
   private client = new S3Client({
     endpoint: process.env.AWS_S3_ENDPOINT_URL,
     region: process.env.AWS_REGION,
     credentials: {
-      accessKeyId: process.env.AWS_S3_ACCESS_KEY_ID,
-      secretAccessKey: process.env.AWS_S3_SECRET_ACCESS_KEY,
+      accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+      secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
     },
   });
+
+  constructor(private httpService: HttpService) {}
 
   async createGetAndPutSignedUrl(
     hash: string
   ): Promise<{ [key: string]: { get: string; put: string } }> {
-    const signedUrlForGet = (await lastValueFrom(this.hasObject(hash)))
+    const signedUrlForGet = (await this.hasObject(hash))
       ? await getSignedUrl(
           this.client,
           new GetObjectCommand({
@@ -63,25 +55,25 @@ export class S3Service {
     };
   }
 
-  hasObject(hash?: string): Observable<boolean> {
+  async hasObject(hash?: string): Promise<boolean> {
     if (!hash) {
-      return of(false);
+      return false;
     }
 
-    return defer(() => {
-      const command = new HeadObjectCommand({
-        Bucket: process.env.AWS_S3_BUCKET_NAME,
-        Key: hash,
-      });
+    const command = new HeadObjectCommand({
+      Bucket: process.env.AWS_S3_BUCKET_NAME,
+      Key: hash,
+    });
 
-      return getSignedUrl(this.client, command, { expiresIn: 18000 });
-    }).pipe(
-      switchMap((headUrl) =>
-        this.httpService.head(headUrl).pipe(
-          map((req) => req.status >= 200 && req.status < 400),
-          catchError((error) => of(false))
-        )
-      )
+    const headUrl = await getSignedUrl(this.client, command, {
+      expiresIn: 18000,
+    });
+
+    const response$ = this.httpService.head(headUrl).pipe(
+      map((req) => req.status >= 200 && req.status < 400),
+      catchError((error) => of(false))
     );
+
+    return lastValueFrom(response$);
   }
 }
