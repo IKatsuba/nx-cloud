@@ -9,3 +9,11 @@ out of Nx.
 This project is a work in progress. We are currently working on the first version of Nx Cloud Community Edition the
 online streams. You can watch the recordings of the live streams
 on [Telegram](https://t.me/igor_katsuba).
+
+## Roadmap
+
+- [x] Distributed Caching
+- [ ] Distributed Task Execution
+- [ ] Nx Cloud Dashboard
+- [ ] GitHub Integration
+- [ ] GitLab Integration
