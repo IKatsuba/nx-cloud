@@ -1,7 +1,9 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Post, UseGuards } from '@nestjs/common';
 import { lastValueFrom, merge, reduce } from 'rxjs';
 import { Storage } from '@nx-cloud/api/storage';
+import { JwtAuthGuard } from '@nx-cloud/api/auth';
 
+@UseGuards(JwtAuthGuard)
 @Controller('runs')
 export class RunsController {
   constructor(private storage: Storage) {}

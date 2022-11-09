@@ -1,0 +1,6 @@
+POST http://localhost:3333/nx-cloud/runs/start
+Content-Type: application/json
+
+{
+  "hashes": ["aslkxalsx"]
+}

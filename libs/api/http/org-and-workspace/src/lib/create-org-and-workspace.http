@@ -1,0 +1,6 @@
+POST http://localhost:3333/nx-cloud/create-org-and-workspace
+Content-Type: application/json
+
+{
+  "workspaceName": "999"
+}
