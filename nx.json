@@ -5,6 +5,12 @@
     "default": {
       "runner": "@nrwl/nx-cloud",
       "options": {
+        "cacheableOperations": ["build", "lint", "test", "e2e"]
+      }
+    },
+    "cloud": {
+      "runner": "@nrwl/nx-cloud",
+      "options": {
         "cacheableOperations": ["build", "lint", "test", "e2e"],
         "accessToken": "token",
         "url": "http://localhost:3333"
