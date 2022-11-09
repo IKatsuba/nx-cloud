@@ -24,7 +24,8 @@
       "@nx-cloud/api/http/runs": ["libs/api/http/runs/src/index.ts"],
       "@nx-cloud/api/http/save-metrics": [
         "libs/api/http/save-metrics/src/index.ts"
-      ]
+      ],
+      "@nx-cloud/api/storage": ["libs/api/storage/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

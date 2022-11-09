@@ -1,16 +1,16 @@
 import { Body, Controller, Post } from '@nestjs/common';
-import { S3Service } from './s3.service';
 import { lastValueFrom, merge, reduce } from 'rxjs';
+import { Storage } from '@nx-cloud/api/storage';
 
 @Controller('runs')
 export class RunsController {
-  constructor(private s3: S3Service) {}
+  constructor(private storage: Storage) {}
 
   @Post('start')
   async start(@Body('hashes') hashes: string[]) {
     const urls = await lastValueFrom(
       merge(
-        ...hashes.map((hash) => this.s3.createGetAndPutSignedUrl(hash))
+        ...hashes.map((hash) => this.storage.createGetAndPutSignedUrl(hash))
       ).pipe(reduce((acc, curr) => ({ ...acc, ...curr }), {}))
     );
 

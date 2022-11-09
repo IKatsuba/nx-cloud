@@ -8,9 +8,10 @@ import {
 } from '@aws-sdk/client-s3';
 import { catchError, lastValueFrom, map, of } from 'rxjs';
 import { HttpService } from '@nestjs/axios';
+import { Storage } from '../storage';
 
 @Injectable()
-export class S3Service {
+export class S3Service extends Storage {
   private client = new S3Client({
     endpoint: process.env.AWS_S3_ENDPOINT_URL,
     region: process.env.AWS_REGION,
@@ -20,7 +21,9 @@ export class S3Service {
     },
   });
 
-  constructor(private httpService: HttpService) {}
+  constructor(private httpService: HttpService) {
+    super();
+  }
 
   async createGetAndPutSignedUrl(
     hash: string
