@@ -6,7 +6,6 @@ describe('ApiReportClientErrorController', () => {
 
   beforeEach(async () => {
     const module = await Test.createTestingModule({
-      providers: [],
       controllers: [ApiReportClientErrorController],
     }).compile();
 

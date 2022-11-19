@@ -7,9 +7,7 @@ export class FirebaseStorageService extends Storage {
     storageBucket: 'nx-cloud-ce.appspot.com',
   });
 
-  async createGetAndPutSignedUrl(
-    hash: string
-  ): Promise<{ [key: string]: { get: string; put: string } }> {
+  async createGetSignedUrl(hash: string): Promise<string> {
     const bucket = this.firebaseApp.storage().bucket();
 
     const file = bucket.file(hash);
@@ -22,6 +20,14 @@ export class FirebaseStorageService extends Storage {
         })
       : null;
 
+    return getUrl;
+  }
+
+  async createPutSignedUrl(hash: string): Promise<string> {
+    const bucket = this.firebaseApp.storage().bucket();
+
+    const file = bucket.file(hash);
+
     const [putUrl] = await file.getSignedUrl({
       contentType: 'application/octet-stream',
       version: 'v4',
@@ -29,11 +35,6 @@ export class FirebaseStorageService extends Storage {
       expires: Date.now() + 18000000,
     });
 
-    return {
-      [hash]: {
-        get: getUrl,
-        put: putUrl,
-      },
-    };
+    return putUrl;
   }
 }

@@ -25,10 +25,8 @@ export class S3Service extends Storage {
     super();
   }
 
-  async createGetAndPutSignedUrl(
-    hash: string
-  ): Promise<{ [key: string]: { get: string; put: string } }> {
-    const signedUrlForGet = (await this.hasObject(hash))
+  async createGetSignedUrl(hash: string): Promise<string> {
+    return (await this.hasObject(hash))
       ? await getSignedUrl(
           this.client,
           new GetObjectCommand({
@@ -40,22 +38,17 @@ export class S3Service extends Storage {
           }
         )
       : null;
+  }
 
-    const putCommand = new PutObjectCommand({
+  async createPutSignedUrl(hash: string): Promise<string> {
+    const command = new PutObjectCommand({
       Bucket: process.env.AWS_S3_BUCKET_NAME,
       Key: hash,
     });
 
-    const signedUrlForPut = await getSignedUrl(this.client, putCommand, {
+    return await getSignedUrl(this.client, command, {
       expiresIn: 18000,
     });
-
-    return {
-      [hash]: {
-        get: signedUrlForGet,
-        put: signedUrlForPut,
-      },
-    };
   }
 
   async hasObject(hash?: string): Promise<boolean> {

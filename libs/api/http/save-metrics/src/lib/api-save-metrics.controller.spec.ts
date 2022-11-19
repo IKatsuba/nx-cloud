@@ -6,7 +6,6 @@ describe('ApiSaveMetricsController', () => {
 
   beforeEach(async () => {
     const module = await Test.createTestingModule({
-      providers: [],
       controllers: [ApiSaveMetricsController],
     }).compile();
 

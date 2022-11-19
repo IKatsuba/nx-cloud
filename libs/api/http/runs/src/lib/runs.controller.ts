@@ -1,7 +1,11 @@
 import { Body, Controller, Post, UseGuards } from '@nestjs/common';
 import { lastValueFrom, merge, reduce } from 'rxjs';
 import { Storage } from '@nx-cloud/api/storage';
-import { JwtAuthGuard } from '@nx-cloud/api/auth';
+import {
+  JwtAuthGuard,
+  TokenPermission,
+  TokenPermissions,
+} from '@nx-cloud/api/auth';
 
 @UseGuards(JwtAuthGuard)
 @Controller('runs')
@@ -9,10 +13,22 @@ export class RunsController {
   constructor(private storage: Storage) {}
 
   @Post('start')
-  async start(@Body('hashes') hashes: string[]) {
+  async start(
+    @Body('hashes') hashes: string[],
+    @TokenPermissions() permissions: TokenPermission[]
+  ) {
     const urls = await lastValueFrom(
       merge(
-        ...hashes.map((hash) => this.storage.createGetAndPutSignedUrl(hash))
+        ...hashes.map(async (hash) => ({
+          [hash]: {
+            get: permissions.includes(TokenPermission.ReadCache)
+              ? await this.storage.createGetSignedUrl(hash)
+              : null,
+            put: permissions.includes(TokenPermission.WriteCache)
+              ? await this.storage.createPutSignedUrl(hash)
+              : null,
+          },
+        }))
       ).pipe(reduce((acc, curr) => ({ ...acc, ...curr }), {}))
     );
 
