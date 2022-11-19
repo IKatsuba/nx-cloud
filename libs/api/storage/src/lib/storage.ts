@@ -1,5 +1,4 @@
 export abstract class Storage {
-  abstract createGetAndPutSignedUrl(
-    hash: string
-  ): Promise<{ [key: string]: { get: string; put: string } }>;
+  abstract createGetSignedUrl(hash: string): Promise<string>;
+  abstract createPutSignedUrl(hash: string): Promise<string>;
 }

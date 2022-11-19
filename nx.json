@@ -5,14 +5,8 @@
     "default": {
       "runner": "@nrwl/nx-cloud",
       "options": {
-        "cacheableOperations": ["build", "lint", "test", "e2e"]
-      }
-    },
-    "cloud": {
-      "runner": "@nrwl/nx-cloud",
-      "options": {
         "cacheableOperations": ["build", "lint", "test", "e2e"],
-        "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ3b3Jrc3BhY2VOYW1lIjoibngtY2xvdWQtd29ya3NwYWNlIiwiaWF0IjoxNjY4MDE5NDgzfQ.3N_KBW97Zkp0-XvUYFCU_oyvnWpcKMf8gykpE6PNOzs",
+        "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ3b3Jrc3BhY2VOYW1lIjoibngtY2xvdWQtd29ya3NwYWNlIiwid29ya3NwYWNlSWQiOjMsInBlcm1pc3Npb25zIjpbInJlYWQ6Y2FjaGUiLCJ3cml0ZTpjYWNoZSJdLCJpYXQiOjE2Njg4NTY2MDR9.bUTdyIErhYivs3EWQEEctq4FlwgBTemUoiCV8wTi3Ck",
         "url": "http://localhost:3333"
       }
     }

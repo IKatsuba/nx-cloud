@@ -6,7 +6,6 @@ describe('ApiOrgAndWorkspaceController', () => {
 
   beforeEach(async () => {
     const module = await Test.createTestingModule({
-      providers: [],
       controllers: [ApiOrgAndWorkspaceController],
     }).compile();
 
