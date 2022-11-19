@@ -7,6 +7,8 @@ import { S3StorageModule } from '@nx-cloud/api/storage';
 import { ApiAuthModule } from '@nx-cloud/api/auth';
 import { MikroOrmModule } from '@mikro-orm/nestjs';
 import { environment } from '../environments/environment';
+import { ApiHttpPingModule } from '@nx-cloud/api/http/ping';
+import { ApiHttpStatsModule } from '@nx-cloud/api/http/stats';
 
 @Module({
   imports: [
@@ -15,6 +17,8 @@ import { environment } from '../environments/environment';
     ApiRunsModule.forRoot({ imports: [S3StorageModule] }),
     ApiSaveMetricsModule,
     ApiReportClientErrorModule,
+    ApiHttpPingModule,
+    ApiHttpStatsModule,
     MikroOrmModule.forRoot(environment.mikroOrm),
   ],
 })

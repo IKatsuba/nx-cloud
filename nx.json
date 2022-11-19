@@ -7,7 +7,8 @@
       "options": {
         "cacheableOperations": ["build", "lint", "test", "e2e"],
         "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ3b3Jrc3BhY2VOYW1lIjoibngtY2xvdWQtd29ya3NwYWNlIiwid29ya3NwYWNlSWQiOjMsInBlcm1pc3Npb25zIjpbInJlYWQ6Y2FjaGUiLCJ3cml0ZTpjYWNoZSJdLCJpYXQiOjE2Njg4NTY2MDR9.bUTdyIErhYivs3EWQEEctq4FlwgBTemUoiCV8wTi3Ck",
-        "url": "http://localhost:3333"
+        "url": "http://localhost:3333",
+        "canTrackAnalytics": true
       }
     }
   },

@@ -11,7 +11,7 @@ import { AppModule } from './app/app.module';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const globalPrefix = 'nx-cloud';
-  app.setGlobalPrefix(globalPrefix);
+  app.setGlobalPrefix(globalPrefix, { exclude: ['ping'] });
   const port = process.env.PORT || 3333;
   await app.listen(port);
   Logger.log(

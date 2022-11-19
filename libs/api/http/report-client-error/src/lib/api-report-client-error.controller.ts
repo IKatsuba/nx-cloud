@@ -1,5 +1,7 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Post, UseGuards } from '@nestjs/common';
+import { JwtAuthGuard } from '@nx-cloud/api/auth';
 
+@UseGuards(JwtAuthGuard)
 @Controller('report-client-error')
 export class ApiReportClientErrorController {
   @Post()
