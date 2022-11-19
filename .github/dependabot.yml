@@ -11,5 +11,6 @@ updates:
       interval: "weekly"
     ignore:
       - dependency-name: "@nrwl/*"
+      - dependency-name: "nx"
     labels:
       - "npm dependencies"
