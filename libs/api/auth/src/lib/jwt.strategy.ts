@@ -2,15 +2,15 @@ import { Injectable } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import { InjectRepository } from '@mikro-orm/nestjs';
-import { Workspace } from '@nx-cloud/api/db/entities';
+import { WorkspaceEntity } from '@nx-cloud/api/db/entities';
 import { EntityRepository } from '@mikro-orm/postgresql';
 import { TokenPermission } from './token-permissions.decorator';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
   constructor(
-    @InjectRepository(Workspace)
-    private workspaceRepository: EntityRepository<Workspace>
+    @InjectRepository(WorkspaceEntity)
+    private workspaceRepository: EntityRepository<WorkspaceEntity>
   ) {
     super({
       jwtFromRequest: ExtractJwt.fromHeader('authorization'),
@@ -20,8 +20,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   }
 
   async validate(payload: {
-    workspaceName: string;
-    workspaceId: number;
+    workspaceId: string;
     permissions: Array<TokenPermission>;
   }) {
     const workspace = await this.workspaceRepository.findOne({
@@ -33,7 +32,6 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     }
 
     return {
-      workspaceName: payload.workspaceName,
       workspaceId: payload.workspaceId,
       permissions: payload.permissions,
     };

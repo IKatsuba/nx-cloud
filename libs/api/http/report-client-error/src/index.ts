@@ -1,2 +1,2 @@
 export * from './lib/api-report-client-error.controller';
-export * from './lib/api-report-client-error.module';
+export * from './lib/api-http-report-client-error.module';

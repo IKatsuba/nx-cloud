@@ -3,11 +3,11 @@ import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
 import { JwtStrategy } from './jwt.strategy';
 import { MikroOrmModule } from '@mikro-orm/nestjs';
-import { Workspace } from '@nx-cloud/api/db/entities';
+import { WorkspaceEntity } from '@nx-cloud/api/db/entities';
 
 @Module({
   imports: [
-    MikroOrmModule.forFeature([Workspace]),
+    MikroOrmModule.forFeature([WorkspaceEntity]),
     PassportModule.register({ defaultStrategy: 'jwt' }),
     JwtModule.register({
       secret: process.env.JWT_SECRET,

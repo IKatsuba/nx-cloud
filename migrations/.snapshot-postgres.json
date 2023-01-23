@@ -6,12 +6,12 @@
       "columns": {
         "id": {
           "name": "id",
-          "type": "serial",
-          "unsigned": true,
-          "autoincrement": true,
-          "primary": true,
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
           "nullable": false,
-          "mappedType": "integer"
+          "mappedType": "string"
         },
         "name": {
           "name": "name",
@@ -21,13 +21,23 @@
           "primary": false,
           "nullable": false,
           "mappedType": "string"
+        },
+        "distributed_builds_enabled": {
+          "name": "distributed_builds_enabled",
+          "type": "boolean",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "default": "true",
+          "mappedType": "boolean"
         }
       },
-      "name": "workspace",
+      "name": "workspace_entity",
       "schema": "public",
       "indexes": [
         {
-          "keyName": "workspace_pkey",
+          "keyName": "workspace_entity_pkey",
           "columnNames": ["id"],
           "composite": false,
           "primary": true,
@@ -36,6 +46,259 @@
       ],
       "checks": [],
       "foreignKeys": {}
+    },
+    {
+      "columns": {
+        "run_group": {
+          "name": "run_group",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "string"
+        },
+        "branch": {
+          "name": "branch",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "string"
+        },
+        "workspace_id": {
+          "name": "workspace_id",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "string"
+        },
+        "is_completed": {
+          "name": "is_completed",
+          "type": "boolean",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "default": "false",
+          "mappedType": "boolean"
+        }
+      },
+      "name": "run_group_entity",
+      "schema": "public",
+      "indexes": [
+        {
+          "keyName": "run_group_entity_pkey",
+          "columnNames": ["run_group"],
+          "composite": false,
+          "primary": true,
+          "unique": true
+        }
+      ],
+      "checks": [],
+      "foreignKeys": {
+        "run_group_entity_workspace_id_foreign": {
+          "constraintName": "run_group_entity_workspace_id_foreign",
+          "columnNames": ["workspace_id"],
+          "localTableName": "public.run_group_entity",
+          "referencedColumnNames": ["id"],
+          "referencedTableName": "public.workspace_entity",
+          "updateRule": "cascade"
+        }
+      }
+    },
+    {
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "string"
+        },
+        "command": {
+          "name": "command",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "string"
+        },
+        "max_parallel": {
+          "name": "max_parallel",
+          "type": "int",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "default": "3",
+          "mappedType": "integer"
+        },
+        "status_code": {
+          "name": "status_code",
+          "type": "int",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "default": "0",
+          "mappedType": "integer"
+        },
+        "is_completed": {
+          "name": "is_completed",
+          "type": "boolean",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "default": "false",
+          "mappedType": "boolean"
+        },
+        "run_group_run_group": {
+          "name": "run_group_run_group",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "string"
+        }
+      },
+      "name": "execution_entity",
+      "schema": "public",
+      "indexes": [
+        {
+          "keyName": "execution_entity_pkey",
+          "columnNames": ["id"],
+          "composite": false,
+          "primary": true,
+          "unique": true
+        }
+      ],
+      "checks": [],
+      "foreignKeys": {
+        "execution_entity_run_group_run_group_foreign": {
+          "constraintName": "execution_entity_run_group_run_group_foreign",
+          "columnNames": ["run_group_run_group"],
+          "localTableName": "public.execution_entity",
+          "referencedColumnNames": ["run_group"],
+          "referencedTableName": "public.run_group_entity",
+          "updateRule": "cascade"
+        }
+      }
+    },
+    {
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "string"
+        },
+        "task_id": {
+          "name": "task_id",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "string"
+        },
+        "project_name": {
+          "name": "project_name",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "string"
+        },
+        "target": {
+          "name": "target",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "string"
+        },
+        "params": {
+          "name": "params",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "string"
+        },
+        "configuration": {
+          "name": "configuration",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "string"
+        },
+        "hash": {
+          "name": "hash",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "string"
+        },
+        "is_completed": {
+          "name": "is_completed",
+          "type": "boolean",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "boolean"
+        },
+        "execution_id": {
+          "name": "execution_id",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "string"
+        }
+      },
+      "name": "task_entity",
+      "schema": "public",
+      "indexes": [
+        {
+          "keyName": "task_entity_pkey",
+          "columnNames": ["id"],
+          "composite": false,
+          "primary": true,
+          "unique": true
+        }
+      ],
+      "checks": [],
+      "foreignKeys": {
+        "task_entity_execution_id_foreign": {
+          "constraintName": "task_entity_execution_id_foreign",
+          "columnNames": ["execution_id"],
+          "localTableName": "public.task_entity",
+          "referencedColumnNames": ["id"],
+          "referencedTableName": "public.execution_entity",
+          "updateRule": "cascade"
+        }
+      }
     }
   ]
 }
