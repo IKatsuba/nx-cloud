@@ -41,7 +41,7 @@
     "@mikro-orm/core": "^5.5.3",
     "@mikro-orm/migrations": "^5.5.3",
     "@mikro-orm/nestjs": "^5.1.2",
-    "@mikro-orm/postgresql": "^5.5.3",
+    "@mikro-orm/postgresql": "^5.6.9",
     "@nestjs/axios": "1.0.0",
     "@nestjs/common": "^9.0.0",
     "@nestjs/core": "^9.2.0",
