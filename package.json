@@ -11,7 +11,7 @@
   "private": true,
   "devDependencies": {
     "@nestjs/schematics": "^9.0.0",
-    "@nestjs/testing": "^9.0.0",
+    "@nestjs/testing": "^9.3.8",
     "@nrwl/cli": "15.2.1",
     "@nrwl/eslint-plugin-nx": "15.2.1",
     "@nrwl/jest": "15.2.1",
