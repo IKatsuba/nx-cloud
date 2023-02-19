@@ -5,12 +5,12 @@
 
 version: 2
 updates:
-  - package-ecosystem: "npm" # See documentation for possible values
-    directory: "/" # Location of package manifests
+  - package-ecosystem: 'npm' # See documentation for possible values
+    directory: '/' # Location of package manifests
     schedule:
-      interval: "weekly"
+      interval: 'daily'
     ignore:
-      - dependency-name: "@nrwl/*"
-      - dependency-name: "nx"
+      - dependency-name: '@nrwl/*'
+      - dependency-name: 'nx'
     labels:
-      - "npm dependencies"
+      - 'npm dependencies'
