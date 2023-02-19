@@ -1,5 +1,9 @@
 import { ReflectMetadataProvider } from '@mikro-orm/core';
-import { Workspace } from '@nx-cloud/api/db/entities';
+import {
+  ExecutionEntity,
+  TaskEntity,
+  WorkspaceEntity,
+} from '@nx-cloud/api/db/entities';
 
 export const environment = {
   production: false,
@@ -7,6 +11,6 @@ export const environment = {
     type: 'postgresql' as const,
     clientUrl: 'postgresql://localhost:5432/postgres',
     metadataProvider: ReflectMetadataProvider,
-    entities: [Workspace],
+    entities: [WorkspaceEntity, TaskEntity, ExecutionEntity],
   },
 };

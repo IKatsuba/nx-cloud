@@ -4,4 +4,4 @@ import { ApiReportClientErrorController } from './api-report-client-error.contro
 @Module({
   controllers: [ApiReportClientErrorController],
 })
-export class ApiReportClientErrorModule {}
+export class ApiHttpReportClientErrorModule {}

@@ -1,7 +1,7 @@
 import { Body, Controller, Post } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@mikro-orm/nestjs';
-import { Workspace } from '@nx-cloud/api/db/entities';
+import { WorkspaceEntity } from '@nx-cloud/api/db/entities';
 import { EntityRepository } from '@mikro-orm/core';
 import { TokenPermission } from '@nx-cloud/api/auth';
 
@@ -9,15 +9,15 @@ import { TokenPermission } from '@nx-cloud/api/auth';
 export class ApiOrgAndWorkspaceController {
   constructor(
     private jwtService: JwtService,
-    @InjectRepository(Workspace)
-    private workspaceRepository: EntityRepository<Workspace>
+    @InjectRepository(WorkspaceEntity)
+    private workspaceRepository: EntityRepository<WorkspaceEntity>
   ) {}
 
   @Post()
   async createOrgAndWorkspace(
     @Body() body: { workspaceName: string; installationSource: string }
   ) {
-    const workspace = new Workspace();
+    const workspace = new WorkspaceEntity();
     workspace.name = body.workspaceName;
 
     const workspaceId = await this.workspaceRepository.nativeInsert(workspace);
@@ -26,7 +26,6 @@ export class ApiOrgAndWorkspaceController {
       url: 'http://localhost:3333',
       token: this.jwtService.sign(
         {
-          workspaceName: body.workspaceName,
           workspaceId,
           permissions: [TokenPermission.ReadCache, TokenPermission.WriteCache],
         },

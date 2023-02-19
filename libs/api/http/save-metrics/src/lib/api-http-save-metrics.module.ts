@@ -4,4 +4,4 @@ import { ApiSaveMetricsController } from './api-save-metrics.controller';
 @Module({
   controllers: [ApiSaveMetricsController],
 })
-export class ApiSaveMetricsModule {}
+export class ApiHttpSaveMetricsModule {}

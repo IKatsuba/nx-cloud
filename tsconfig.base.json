@@ -17,6 +17,9 @@
     "paths": {
       "@nx-cloud/api/auth": ["libs/api/auth/src/index.ts"],
       "@nx-cloud/api/db/entities": ["libs/api/db/entities/src/index.ts"],
+      "@nx-cloud/api/http/executions": [
+        "libs/api/http/executions/src/index.ts"
+      ],
       "@nx-cloud/api/http/org-and-workspace": [
         "libs/api/http/org-and-workspace/src/index.ts"
       ],
@@ -29,6 +32,7 @@
         "libs/api/http/save-metrics/src/index.ts"
       ],
       "@nx-cloud/api/http/stats": ["libs/api/http/stats/src/index.ts"],
+      "@nx-cloud/api/models": ["libs/api/models/src/index.ts"],
       "@nx-cloud/api/storage": ["libs/api/storage/src/index.ts"]
     }
   },

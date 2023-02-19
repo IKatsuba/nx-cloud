@@ -8,7 +8,7 @@ import { ForwardReference } from '@nestjs/common/interfaces/modules/forward-refe
   controllers: [RunsController],
   imports: [HttpModule],
 })
-export class ApiRunsModule {
+export class ApiHttpRunsModule {
   static forRoot({
     imports,
   }: {
@@ -17,7 +17,7 @@ export class ApiRunsModule {
     >;
   }): DynamicModule {
     return {
-      module: ApiRunsModule,
+      module: ApiHttpRunsModule,
       imports: imports ?? [],
     };
   }
