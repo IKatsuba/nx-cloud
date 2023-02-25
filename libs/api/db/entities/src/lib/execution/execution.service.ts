@@ -3,12 +3,15 @@ import { ExecutionEntity } from './execution.entity';
 import { InjectRepository } from '@mikro-orm/nestjs';
 import { EntityRepository } from '@mikro-orm/postgresql';
 import { RunGroupEntity } from '../run-group/run-group.entity';
+import { TaskEntity } from '../task/task.entity';
 
 @Injectable()
 export class ExecutionService {
   constructor(
     @InjectRepository(ExecutionEntity)
-    private readonly executionRepository: EntityRepository<ExecutionEntity>
+    private readonly executionRepository: EntityRepository<ExecutionEntity>,
+    @InjectRepository(TaskEntity)
+    private readonly taskRepository: EntityRepository<TaskEntity>
   ) {}
 
   async createExecution(param: {
@@ -20,7 +23,9 @@ export class ExecutionService {
     const executionEntity = new ExecutionEntity();
     executionEntity.runGroup = param.runGroup;
     executionEntity.command = param.command;
-    executionEntity.tasks = param.tasks;
+    executionEntity.tasks = (param.tasks || []).map((task) =>
+      this.taskRepository.create(task)
+    );
     executionEntity.maxParallel = param.maxParallel;
 
     await this.executionRepository.persistAndFlush(executionEntity);

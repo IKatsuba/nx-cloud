@@ -1,4 +1,10 @@
-import { Entity, OneToMany, PrimaryKey, Property } from '@mikro-orm/core';
+import {
+  Collection,
+  Entity,
+  OneToMany,
+  PrimaryKey,
+  Property,
+} from '@mikro-orm/core';
 import { Workspace } from '@nx-cloud/api/models';
 import { v4 } from 'uuid';
 import { RunGroupEntity } from '../run-group/run-group.entity';
@@ -18,5 +24,5 @@ export class WorkspaceEntity implements Workspace {
     entity: () => RunGroupEntity,
     mappedBy: (runGroup) => runGroup.workspace,
   })
-  runGroups: RunGroupEntity[] = [];
+  runGroups = new Collection<RunGroupEntity>(this);
 }

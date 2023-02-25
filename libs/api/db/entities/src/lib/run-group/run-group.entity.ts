@@ -1,4 +1,5 @@
 import {
+  Collection,
   Entity,
   LoadStrategy,
   ManyToOne,
@@ -34,5 +35,5 @@ export class RunGroupEntity implements RunGroup {
     mappedBy: (execution) => execution.runGroup,
     strategy: LoadStrategy.JOINED,
   })
-  executions: ExecutionEntity[] = [];
+  executions = new Collection<ExecutionEntity>(this);
 }

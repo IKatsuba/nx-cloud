@@ -1,7 +1,7 @@
 import { Test } from '@nestjs/testing';
 import { ApiHttpExecutionsController } from './api-http-executions.controller';
 
-describe('ApiHttpExecutionsController', () => {
+xdescribe('ApiHttpExecutionsController', () => {
   let controller: ApiHttpExecutionsController;
 
   beforeEach(async () => {

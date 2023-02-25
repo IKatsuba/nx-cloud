@@ -12,7 +12,7 @@ export const environment = {
     type: 'postgresql' as const,
     host: process.env.POSTGRES_HOST || 'localhost',
     port: parseInt(process.env.POSTGRES_PORT || '5432', 10),
-    dbName: process.env.POSTGRES_DB || 'nx_cloud',
+    dbName: process.env.POSTGRES_DB || 'postgres',
     password: process.env.POSTGRES_PASSWORD || null,
     user: process.env.POSTGRESS_USER || null,
     metadataProvider: ReflectMetadataProvider,

@@ -1,6 +1,7 @@
 import { Execution } from '@nx-cloud/api/models';
 import { RunGroupEntity, TaskEntity } from '@nx-cloud/api/db/entities';
 import {
+  Collection,
   Entity,
   LoadStrategy,
   ManyToOne,
@@ -11,7 +12,7 @@ import {
 import { v4 } from 'uuid';
 
 @Entity()
-export class ExecutionEntity implements Execution {
+export class ExecutionEntity implements Omit<Execution, 'tasks'> {
   @PrimaryKey()
   id: string = v4();
 
@@ -39,5 +40,5 @@ export class ExecutionEntity implements Execution {
     mappedBy: (task) => task.execution,
     strategy: LoadStrategy.JOINED,
   })
-  tasks: TaskEntity[];
+  tasks = new Collection<TaskEntity>(this);
 }

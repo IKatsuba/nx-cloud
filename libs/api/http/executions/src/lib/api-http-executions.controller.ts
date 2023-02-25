@@ -36,9 +36,9 @@ export class ApiHttpExecutionsController {
       runGroup: string;
     }
   ): Promise<{ enabled: boolean }> {
-    try {
-      await this.workspaceService.assertEnabled(workspaceId);
-    } catch (e) {
+    const workspace = await this.workspaceService.getWorkspace(workspaceId);
+
+    if (!workspace.distributedBuildsEnabled) {
       return {
         enabled: false,
       };
@@ -51,6 +51,7 @@ export class ApiHttpExecutionsController {
     await this.runGroupService.createRunGroup({
       runGroup: body.runGroup,
       branch: body.branch,
+      workspace,
     });
 
     return {
@@ -74,7 +75,9 @@ export class ApiHttpExecutionsController {
     id: string;
     error: string;
   }> {
-    if (!(await this.workspaceService.isEnabled(workspaceId))) {
+    const workspace = await this.workspaceService.getWorkspace(workspaceId);
+
+    if (!workspace.distributedBuildsEnabled) {
       return {
         enabled: false,
         id: null,
@@ -82,7 +85,13 @@ export class ApiHttpExecutionsController {
       };
     }
 
-    const runGroup = await this.runGroupService.findOne(body.runGroup);
+    const runGroup =
+      (await this.runGroupService.findOne(body.runGroup)) ??
+      (await this.runGroupService.createRunGroup({
+        runGroup: body.runGroup,
+        branch: body.branch,
+        workspace,
+      }));
 
     if (!runGroup) {
       return {
@@ -192,7 +201,7 @@ export class ApiHttpExecutionsController {
       return {
         executionStatus: 'complete',
         commandStatus: execution.statusCode,
-        completedTasks: execution.tasks.map((t) => ({
+        completedTasks: execution.tasks.getItems().map((t) => ({
           ...t,
           url: '/task/' + t.id,
         })),
@@ -203,7 +212,9 @@ export class ApiHttpExecutionsController {
 
     const tasks = execution.tasks;
 
-    const completedTasks = tasks.filter((t) => t.isCompleted);
+    await tasks.init();
+
+    const completedTasks = tasks.getItems().filter((t) => t.isCompleted);
     const completedTaskIds = completedTasks.map((t) => t.id);
 
     const taskUrls = completedTaskIds.map((id) => '/task/' + id);
@@ -215,7 +226,7 @@ export class ApiHttpExecutionsController {
       };
     });
 
-    if (tasks.every((t) => t.isCompleted)) {
+    if (tasks.getItems().every((t) => t.isCompleted)) {
       await this.executionService.completeExecution(execution);
     }
 

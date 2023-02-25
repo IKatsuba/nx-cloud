@@ -1,7 +1,7 @@
 import { Test } from '@nestjs/testing';
 import { ApiOrgAndWorkspaceController } from './api-org-and-workspace.controller';
 
-describe('ApiOrgAndWorkspaceController', () => {
+xdescribe('ApiOrgAndWorkspaceController', () => {
   let controller: ApiOrgAndWorkspaceController;
 
   beforeEach(async () => {

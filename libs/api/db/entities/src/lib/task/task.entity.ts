@@ -26,14 +26,14 @@ export class TaskEntity implements Task {
   @Property()
   params: string;
 
-  @Property()
+  @Property({ nullable: true })
   configuration: string;
 
   @Property()
   hash: string;
 
   @Property()
-  isCompleted: boolean;
+  isCompleted: boolean = false;
 
   @ManyToOne({
     entity: () => ExecutionEntity,

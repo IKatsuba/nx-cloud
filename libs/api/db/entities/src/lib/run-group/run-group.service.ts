@@ -2,6 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { RunGroupEntity } from './run-group.entity';
 import { InjectRepository } from '@mikro-orm/nestjs';
 import { EntityRepository } from '@mikro-orm/postgresql';
+import { WorkspaceEntity } from '../workspace/workspace.entity';
+import { workspaceGenerators } from 'nx/src/command-line/workspace-generators';
 
 @Injectable()
 export class RunGroupService {
@@ -13,13 +15,16 @@ export class RunGroupService {
   async createRunGroup({
     runGroup,
     branch,
+    workspace,
   }: {
     runGroup: string;
     branch: string;
+    workspace: WorkspaceEntity;
   }) {
     const runGroupEntity = new RunGroupEntity();
     runGroupEntity.runGroup = runGroup;
     runGroupEntity.branch = branch;
+    runGroupEntity.workspace = workspace;
     await this.runGroupRepository.persistAndFlush(runGroupEntity);
   }
 
@@ -42,9 +47,13 @@ export class RunGroupService {
     }
 
     runGroupEntity.isCompleted = true;
-    runGroupEntity.executions.forEach((execution) => {
+
+    await runGroupEntity.executions.init();
+
+    for (const execution of runGroupEntity.executions) {
       execution.isCompleted = true;
-    });
+    }
+
     await this.runGroupRepository.upsert(runGroupEntity);
   }
 }
