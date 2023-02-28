@@ -125,7 +125,6 @@ export class ApiHttpExecutionsController {
       executionId: string;
       statusCode: number;
       completedTasks: Task[];
-      completedTaskIds: string[];
     }
   ): Promise<{
     completed: boolean;
@@ -140,7 +139,7 @@ export class ApiHttpExecutionsController {
 
     if (!execution) {
       return {
-        completed: true,
+        completed: false,
         executionId: null,
         tasks: [],
         maxParallel: null,
@@ -148,8 +147,11 @@ export class ApiHttpExecutionsController {
       };
     }
 
-    if (body.completedTaskIds) {
-      await this.taskService.markCompleted(body.completedTaskIds);
+    if (body.completedTasks && body.completedTasks.length) {
+      await this.taskService.markCompleted(
+        execution.id,
+        body.completedTasks.map((t) => t.taskId)
+      );
     }
 
     if (body.statusCode !== 0) {
@@ -189,7 +191,7 @@ export class ApiHttpExecutionsController {
 
     if (!execution) {
       return {
-        executionStatus: 'NOT_FOUND',
+        executionStatus: 'running',
         commandStatus: null,
         completedTasks: [],
         runUrl: null,

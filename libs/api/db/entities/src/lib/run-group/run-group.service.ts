@@ -20,12 +20,14 @@ export class RunGroupService {
     runGroup: string;
     branch: string;
     workspace: WorkspaceEntity;
-  }) {
+  }): Promise<RunGroupEntity> {
     const runGroupEntity = new RunGroupEntity();
     runGroupEntity.runGroup = runGroup;
     runGroupEntity.branch = branch;
     runGroupEntity.workspace = workspace;
     await this.runGroupRepository.persistAndFlush(runGroupEntity);
+
+    return runGroupEntity;
   }
 
   async exists(runGroup: string) {

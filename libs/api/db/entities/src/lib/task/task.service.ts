@@ -10,9 +10,9 @@ export class TaskService {
     private readonly taskRepository: EntityRepository<TaskEntity>
   ) {}
 
-  async markCompleted(completedTaskIds: string[]) {
+  async markCompleted(executionId: string, completedTaskIds: string[]) {
     await this.taskRepository.nativeUpdate(
-      { id: { $in: completedTaskIds } },
+      { execution: { id: executionId }, taskId: { $in: completedTaskIds } },
       { isCompleted: true }
     );
   }
