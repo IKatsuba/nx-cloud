@@ -30,7 +30,7 @@ export class RunGroupService {
     return runGroupEntity;
   }
 
-  async exists(runGroup: string) {
+  async exists(runGroup: string): Promise<boolean> {
     return !!(await this.runGroupRepository
       .createQueryBuilder('runGroup')
       .where({ runGroup })
@@ -41,7 +41,7 @@ export class RunGroupService {
     return this.runGroupRepository.findOne({ runGroup });
   }
 
-  async completeRunGroup(runGroup: string) {
+  async completeRunGroup(runGroup: string): Promise<void> {
     const runGroupEntity = await this.findOne(runGroup);
 
     if (!runGroupEntity) {

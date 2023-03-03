@@ -20,7 +20,7 @@ export class WorkspaceService {
     );
   }
 
-  async assertEnabled(workspaceId: string) {
+  async assertEnabled(workspaceId: string): Promise<void> {
     if (!(await this.isEnabled(workspaceId))) {
       throw new Error('Workspace is not enabled');
     }

@@ -10,6 +10,7 @@
   },
   "private": true,
   "devDependencies": {
+    "@golevelup/ts-jest": "0.3.5",
     "@nestjs/schematics": "^9.0.0",
     "@nestjs/testing": "^9.0.0",
     "@nrwl/cli": "15.8.3",

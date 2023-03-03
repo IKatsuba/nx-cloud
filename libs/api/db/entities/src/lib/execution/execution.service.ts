@@ -33,14 +33,14 @@ export class ExecutionService {
     return executionEntity;
   }
 
-  async findOne(id: string) {
+  async findOne(id: string): Promise<ExecutionEntity | null> {
     return this.executionRepository
       .createQueryBuilder('execution')
       .where({ id })
       .getSingleResult();
   }
 
-  async completeExecution(execution: ExecutionEntity) {
+  async completeExecution(execution: ExecutionEntity): Promise<void> {
     execution.isCompleted = true;
     await this.executionRepository.upsert({
       id: execution.id,
@@ -55,7 +55,7 @@ export class ExecutionService {
     });
   }
 
-  async setStatusCode(id: string, statusCode: number) {
+  async setStatusCode(id: string, statusCode: number): Promise<void> {
     await this.executionRepository.nativeUpdate(
       { id },
       { statusCode: statusCode }
