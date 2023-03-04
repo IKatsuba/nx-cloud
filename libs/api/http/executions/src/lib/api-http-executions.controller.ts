@@ -122,7 +122,7 @@ export class ApiHttpExecutionsController {
     body: {
       agentName: string;
       runGroup: string;
-      executionId: string;
+      executionId?: string;
       statusCode: number;
       completedTasks: Task[];
     }
