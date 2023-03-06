@@ -9,19 +9,24 @@ import {
 import { catchError, lastValueFrom, map, of } from 'rxjs';
 import { HttpService } from '@nestjs/axios';
 import { Storage } from '../storage';
+import { Environment } from '@nx-cloud/api/models';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class S3Service extends Storage {
   private client = new S3Client({
-    endpoint: process.env.AWS_S3_ENDPOINT_URL,
-    region: process.env.AWS_REGION,
+    endpoint: this.configService.get('AWS_S3_ENDPOINT_URL'),
+    region: this.configService.get('AWS_REGION'),
     credentials: {
-      accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-      secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+      accessKeyId: this.configService.get('AWS_ACCESS_KEY_ID'),
+      secretAccessKey: this.configService.get('AWS_SECRET_ACCESS_KEY'),
     },
   });
 
-  constructor(private httpService: HttpService) {
+  constructor(
+    private httpService: HttpService,
+    private configService: ConfigService<Environment>
+  ) {
     super();
   }
 
@@ -30,7 +35,7 @@ export class S3Service extends Storage {
       ? await getSignedUrl(
           this.client,
           new GetObjectCommand({
-            Bucket: process.env.AWS_S3_BUCKET_NAME,
+            Bucket: this.configService.get('AWS_S3_BUCKET_NAME'),
             Key: hash,
           }),
           {
@@ -42,7 +47,7 @@ export class S3Service extends Storage {
 
   async createPutSignedUrl(hash: string): Promise<string> {
     const command = new PutObjectCommand({
-      Bucket: process.env.AWS_S3_BUCKET_NAME,
+      Bucket: this.configService.get('AWS_S3_BUCKET_NAME'),
       Key: hash,
     });
 
@@ -57,7 +62,7 @@ export class S3Service extends Storage {
     }
 
     const command = new HeadObjectCommand({
-      Bucket: process.env.AWS_S3_BUCKET_NAME,
+      Bucket: this.configService.get('AWS_S3_BUCKET_NAME'),
       Key: hash,
     });
 

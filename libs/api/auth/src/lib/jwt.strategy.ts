@@ -5,17 +5,20 @@ import { InjectRepository } from '@mikro-orm/nestjs';
 import { WorkspaceEntity } from '@nx-cloud/api/db/entities';
 import { EntityRepository } from '@mikro-orm/postgresql';
 import { TokenPermission } from './token-permissions.decorator';
+import { Environment } from '@nx-cloud/api/models';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
   constructor(
     @InjectRepository(WorkspaceEntity)
-    private workspaceRepository: EntityRepository<WorkspaceEntity>
+    private workspaceRepository: EntityRepository<WorkspaceEntity>,
+    configService: ConfigService<Environment>
   ) {
     super({
       jwtFromRequest: ExtractJwt.fromHeader('authorization'),
       ignoreExpiration: false,
-      secretOrKey: process.env.JWT_SECRET,
+      secretOrKey: configService.get('JWT_SECRET'),
     });
   }
 

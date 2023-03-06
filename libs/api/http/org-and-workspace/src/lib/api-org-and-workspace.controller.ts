@@ -4,13 +4,16 @@ import { InjectRepository } from '@mikro-orm/nestjs';
 import { WorkspaceEntity } from '@nx-cloud/api/db/entities';
 import { EntityRepository } from '@mikro-orm/core';
 import { TokenPermission } from '@nx-cloud/api/auth';
+import { Environment } from '@nx-cloud/api/models';
+import { ConfigService } from '@nestjs/config';
 
 @Controller('create-org-and-workspace')
 export class ApiOrgAndWorkspaceController {
   constructor(
     private jwtService: JwtService,
     @InjectRepository(WorkspaceEntity)
-    private workspaceRepository: EntityRepository<WorkspaceEntity>
+    private workspaceRepository: EntityRepository<WorkspaceEntity>,
+    private configService: ConfigService<Environment>
   ) {}
 
   @Post()
@@ -30,7 +33,7 @@ export class ApiOrgAndWorkspaceController {
           permissions: [TokenPermission.ReadCache, TokenPermission.WriteCache],
         },
         {
-          secret: process.env.JWT_SECRET,
+          secret: this.configService.get('JWT_SECRET'),
         }
       ),
     };

@@ -4,14 +4,19 @@ import { JwtModule } from '@nestjs/jwt';
 import { JwtStrategy } from './jwt.strategy';
 import { MikroOrmModule } from '@mikro-orm/nestjs';
 import { WorkspaceEntity } from '@nx-cloud/api/db/entities';
+import { ConfigService } from '@nestjs/config';
+import { Environment } from '@nx-cloud/api/models';
 
 @Module({
   imports: [
     MikroOrmModule.forFeature([WorkspaceEntity]),
     PassportModule.register({ defaultStrategy: 'jwt' }),
-    JwtModule.register({
-      secret: process.env.JWT_SECRET,
-      signOptions: { expiresIn: '1y' },
+    JwtModule.registerAsync({
+      useFactory: (configService: ConfigService<Environment>) => ({
+        secret: configService.get('JWT_SECRET'),
+        signOptions: { expiresIn: '1y' },
+      }),
+      inject: [ConfigService],
     }),
   ],
   providers: [JwtStrategy],

@@ -7,6 +7,8 @@ import { Logger } from 'nestjs-pino';
 import { NestFactory } from '@nestjs/core';
 
 import { AppModule } from './app/app.module';
+import { ConfigService } from '@nestjs/config';
+import { Environment } from '@nx-cloud/api/models';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
@@ -20,7 +22,10 @@ async function bootstrap() {
 
   const globalPrefix = 'nx-cloud';
   app.setGlobalPrefix(globalPrefix, { exclude: ['ping'] });
-  const port = process.env.PORT || 3333;
+
+  const configService = app.get<ConfigService<Environment>>(ConfigService);
+
+  const port = configService.get('PORT', 3333);
   await app.listen(port);
   logger.log(
     `🚀 Application is running on: http://localhost:${port}/${globalPrefix}`

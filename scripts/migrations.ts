@@ -1,8 +1,19 @@
 import { MikroORM } from '@mikro-orm/core';
-import { environment } from '../apps/api/src/environments/environment';
+import { NestFactory } from '@nestjs/core';
+import { AppModule } from '../apps/api/src/app/app.module';
+import { Logger } from 'nestjs-pino';
 
 (async () => {
-  const orm = await MikroORM.init(environment.mikroOrm);
+  const app = await NestFactory.create(AppModule, {
+    autoFlushLogs: true,
+    bufferLogs: true,
+  });
+
+  const logger = app.get(Logger);
+
+  app.useLogger(logger);
+
+  const orm = app.get(MikroORM);
 
   const migrator = orm.getMigrator();
   await migrator.createMigration();

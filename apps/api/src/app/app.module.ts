@@ -11,9 +11,21 @@ import { ApiHttpPingModule } from '@nx-cloud/api/http/ping';
 import { ApiHttpStatsModule } from '@nx-cloud/api/http/stats';
 import { ApiHttpExecutionsModule } from '@nx-cloud/api/http/executions';
 import { LoggerModule } from 'nestjs-pino';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import { Environment } from '@nx-cloud/api/models';
+import { ReflectMetadataProvider } from '@mikro-orm/core';
+import {
+  ExecutionEntity,
+  TaskEntity,
+  WorkspaceEntity,
+} from '@nx-cloud/api/db/entities';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({
+      envFilePath: environment.production ? '.env' : '.env.dev',
+      isGlobal: true,
+    }),
     LoggerModule.forRoot({
       pinoHttp: {
         level: environment.production ? 'info' : 'debug',
@@ -26,7 +38,19 @@ import { LoggerModule } from 'nestjs-pino';
       },
     }),
     ApiAuthModule,
-    MikroOrmModule.forRoot(environment.mikroOrm),
+    MikroOrmModule.forRootAsync({
+      useFactory: (configService: ConfigService<Environment>) => ({
+        type: 'postgresql' as const,
+        host: configService.get('DB_HOST', 'localhost'),
+        port: parseInt(configService.get('DB_PORT', '5432'), 10),
+        dbName: configService.get('DB_NAME', 'postgres'),
+        password: configService.get('DB_PASSWORD', null),
+        user: configService.get('DB_USER', null),
+        metadataProvider: ReflectMetadataProvider,
+        entities: [WorkspaceEntity, TaskEntity, ExecutionEntity],
+      }),
+      inject: [ConfigService],
+    }),
     ApiHttpOrgAndWorkspaceModule,
     ApiHttpRunsModule.forRoot({ imports: [S3StorageModule] }),
     ApiHttpSaveMetricsModule,
