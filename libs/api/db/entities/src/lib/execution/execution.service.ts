@@ -4,6 +4,7 @@ import { InjectRepository } from '@mikro-orm/nestjs';
 import { EntityRepository } from '@mikro-orm/postgresql';
 import { RunGroupEntity } from '../run-group/run-group.entity';
 import { TaskEntity } from '../task/task.entity';
+import { Collection } from '@mikro-orm/core';
 
 @Injectable()
 export class ExecutionService {
@@ -23,8 +24,9 @@ export class ExecutionService {
     const executionEntity = new ExecutionEntity();
     executionEntity.runGroup = param.runGroup;
     executionEntity.command = param.command;
-    executionEntity.tasks = (param.tasks || []).map((task) =>
-      this.taskRepository.create(task)
+    executionEntity.tasks = new Collection<TaskEntity>(
+      executionEntity,
+      (param.tasks || []).map((task) => this.taskRepository.create(task))
     );
     executionEntity.maxParallel = param.maxParallel;
 
