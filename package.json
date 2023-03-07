@@ -24,7 +24,7 @@
     "@types/jest": "29.4.0",
     "@types/node": "18.14.6",
     "@types/passport-jwt": "^3.0.7",
-    "@typescript-eslint/eslint-plugin": "^5.36.1",
+    "@typescript-eslint/eslint-plugin": "^5.54.1",
     "@typescript-eslint/parser": "^5.36.1",
     "eslint": "~8.15.0",
     "eslint-config-prettier": "8.1.0",
