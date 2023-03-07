@@ -2,7 +2,6 @@ import { Injectable } from '@nestjs/common';
 import { TaskEntity } from './task.entity';
 import { InjectRepository } from '@mikro-orm/nestjs';
 import { EntityRepository } from '@mikro-orm/postgresql';
-import { Task } from '@nx-cloud/api/models';
 
 @Injectable()
 export class TaskService {

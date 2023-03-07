@@ -19,10 +19,4 @@ export class WorkspaceService {
       (workspace) => workspace.distributedBuildsEnabled
     );
   }
-
-  async assertEnabled(workspaceId: string): Promise<void> {
-    if (!(await this.isEnabled(workspaceId))) {
-      throw new Error('Workspace is not enabled');
-    }
-  }
 }

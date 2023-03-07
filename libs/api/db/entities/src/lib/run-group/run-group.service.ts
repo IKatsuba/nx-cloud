@@ -3,7 +3,6 @@ import { RunGroupEntity } from './run-group.entity';
 import { InjectRepository } from '@mikro-orm/nestjs';
 import { EntityRepository } from '@mikro-orm/postgresql';
 import { WorkspaceEntity } from '../workspace/workspace.entity';
-import { workspaceGenerators } from 'nx/src/command-line/workspace-generators';
 
 @Injectable()
 export class RunGroupService {
