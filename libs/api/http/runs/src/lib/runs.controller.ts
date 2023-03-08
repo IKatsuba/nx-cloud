@@ -42,7 +42,7 @@ export class RunsController {
     return {
       // todo: return something meaningful
       runUrl: 'http://localhost:3333/runs/1',
-      status: 'error',
+      status: 'completed',
     };
   }
 }
