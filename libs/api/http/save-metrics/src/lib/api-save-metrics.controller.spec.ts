@@ -1,7 +1,7 @@
 import { Test } from '@nestjs/testing';
 import { ApiSaveMetricsController } from './api-save-metrics.controller';
 
-xdescribe('ApiSaveMetricsController', () => {
+describe('ApiSaveMetricsController', () => {
   let controller: ApiSaveMetricsController;
 
   beforeEach(async () => {
@@ -14,5 +14,13 @@ xdescribe('ApiSaveMetricsController', () => {
 
   it('should be defined', () => {
     expect(controller).toBeTruthy();
+  });
+
+  it('should return ok', () => {
+    expect(
+      controller.saveMetrics({
+        entries: [],
+      })
+    ).toBeUndefined();
   });
 });

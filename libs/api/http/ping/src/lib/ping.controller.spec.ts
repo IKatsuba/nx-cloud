@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { PingController } from './ping.controller';
 
-xdescribe('PingController', () => {
+describe('PingController', () => {
   let controller: PingController;
 
   beforeEach(async () => {
@@ -14,5 +14,9 @@ xdescribe('PingController', () => {
 
   it('should be defined', () => {
     expect(controller).toBeDefined();
+  });
+
+  it('should return undefined', () => {
+    expect(controller.ping()).toBeUndefined();
   });
 });

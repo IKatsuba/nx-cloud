@@ -1,7 +1,7 @@
 import { Test } from '@nestjs/testing';
 import { StatsController } from './stats.controller';
 
-xdescribe('StatsController', () => {
+describe('StatsController', () => {
   let controller: StatsController;
 
   beforeEach(async () => {
@@ -15,5 +15,16 @@ xdescribe('StatsController', () => {
 
   it('should be defined', () => {
     expect(controller).toBeTruthy();
+  });
+
+  it('should return ok', () => {
+    expect(
+      controller.stats({
+        command: 'command',
+        isCI: true,
+        useCloud: true,
+        meta: 'sss',
+      })
+    ).toBeUndefined();
   });
 });

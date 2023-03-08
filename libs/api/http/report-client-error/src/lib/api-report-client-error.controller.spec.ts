@@ -1,7 +1,7 @@
 import { Test } from '@nestjs/testing';
 import { ApiReportClientErrorController } from './api-report-client-error.controller';
 
-xdescribe('ApiReportClientErrorController', () => {
+describe('ApiReportClientErrorController', () => {
   let controller: ApiReportClientErrorController;
 
   beforeEach(async () => {
@@ -14,5 +14,11 @@ xdescribe('ApiReportClientErrorController', () => {
 
   it('should be defined', () => {
     expect(controller).toBeTruthy();
+  });
+
+  it('should return ok', () => {
+    expect(controller.reportClientError({})).toEqual({
+      message: 'ok',
+    });
   });
 });
