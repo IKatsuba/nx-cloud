@@ -15,15 +15,18 @@ export class RunGroupService {
     runGroup,
     branch,
     workspace,
+    isCompleted,
   }: {
     runGroup: string;
     branch: string;
     workspace: WorkspaceEntity;
+    isCompleted?: boolean;
   }): Promise<RunGroupEntity> {
     const runGroupEntity = new RunGroupEntity();
     runGroupEntity.runGroup = runGroup;
     runGroupEntity.branch = branch;
     runGroupEntity.workspace = workspace;
+    runGroupEntity.isCompleted = isCompleted ?? false;
     await this.runGroupRepository.persistAndFlush(runGroupEntity);
 
     return runGroupEntity;

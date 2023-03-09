@@ -1,12 +1,16 @@
-import { DynamicModule, Module } from '@nestjs/common';
+import { DynamicModule, ForwardReference, Module } from '@nestjs/common';
 import { RunsController } from './runs.controller';
 import { HttpModule } from '@nestjs/axios';
 import { Type } from '@nestjs/common/interfaces/type.interface';
-import { ForwardReference } from '@nestjs/common/interfaces/modules/forward-reference.interface';
+import {
+  ExecutionModule,
+  RunGroupModule,
+  WorkspaceModule,
+} from '@nx-cloud/api/db/entities';
 
 @Module({
   controllers: [RunsController],
-  imports: [HttpModule],
+  imports: [HttpModule, RunGroupModule, WorkspaceModule, ExecutionModule],
 })
 export class ApiHttpRunsModule {
   static forRoot({

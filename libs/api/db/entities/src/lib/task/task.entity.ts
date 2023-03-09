@@ -35,6 +35,16 @@ export class TaskEntity implements Task {
   @Property()
   isCompleted: boolean = false;
 
+  @Property({ nullable: true })
+  startTime: string;
+
+  @Property({ nullable: true })
+  endTime: string;
+
+  @Property({ default: 'cache-miss' })
+  cacheStatus: 'cache-miss' | 'local-cache-hit' | 'remote-cache-hit' =
+    'cache-miss';
+
   @ManyToOne({
     entity: () => ExecutionEntity,
     inversedBy: (execution) => execution.tasks,

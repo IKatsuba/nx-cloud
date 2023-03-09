@@ -3,6 +3,11 @@ import { RunsController } from './runs.controller';
 import { Storage } from '@nx-cloud/api/storage';
 import { createMock, DeepMocked } from '@golevelup/ts-jest';
 import { TokenPermission } from '@nx-cloud/api/auth';
+import {
+  ExecutionService,
+  RunGroupService,
+  WorkspaceService,
+} from '@nx-cloud/api/db/entities';
 
 describe('RunsController', () => {
   let controller: RunsController;
@@ -15,6 +20,18 @@ describe('RunsController', () => {
         {
           provide: Storage,
           useValue: createMock<Storage>(),
+        },
+        {
+          provide: RunGroupService,
+          useValue: createMock<RunGroupService>(),
+        },
+        {
+          provide: WorkspaceService,
+          useValue: createMock<WorkspaceService>(),
+        },
+        {
+          provide: ExecutionService,
+          useValue: createMock<ExecutionService>(),
         },
       ],
     }).compile();

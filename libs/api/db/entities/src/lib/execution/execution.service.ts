@@ -20,6 +20,7 @@ export class ExecutionService {
     command: string;
     tasks: any;
     maxParallel: number;
+    isCompleted?: boolean;
   }): Promise<ExecutionEntity> {
     const executionEntity = new ExecutionEntity();
     executionEntity.runGroup = param.runGroup;
@@ -29,6 +30,7 @@ export class ExecutionService {
       (param.tasks || []).map((task) => this.taskRepository.create(task))
     );
     executionEntity.maxParallel = param.maxParallel;
+    executionEntity.isCompleted = param.isCompleted ?? false;
 
     await this.executionRepository.persistAndFlush(executionEntity);
 

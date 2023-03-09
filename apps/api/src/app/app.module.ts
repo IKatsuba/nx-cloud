@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { ApiHttpOrgAndWorkspaceModule } from '@nx-cloud/api/http/org-and-workspace';
 import { ApiHttpRunsModule } from '@nx-cloud/api/http/runs';
 import { ApiHttpSaveMetricsModule } from '@nx-cloud/api/http/save-metrics';
@@ -19,6 +19,7 @@ import {
   TaskEntity,
   WorkspaceEntity,
 } from '@nx-cloud/api/db/entities';
+import * as bodyParser from 'body-parser';
 
 @Module({
   imports: [
@@ -60,4 +61,14 @@ import {
     ApiHttpExecutionsModule,
   ],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer
+      .apply(
+        bodyParser.raw({
+          type: ['application/octet-stream'],
+        })
+      )
+      .forRoutes('runs/end');
+  }
+}
