@@ -5,12 +5,19 @@ import { Type } from '@nestjs/common/interfaces/type.interface';
 import {
   ExecutionModule,
   RunGroupModule,
+  TaskModule,
   WorkspaceModule,
 } from '@nx-cloud/api/db/entities';
 
 @Module({
   controllers: [RunsController],
-  imports: [HttpModule, RunGroupModule, WorkspaceModule, ExecutionModule],
+  imports: [
+    HttpModule,
+    RunGroupModule,
+    WorkspaceModule,
+    ExecutionModule,
+    TaskModule,
+  ],
 })
 export class ApiHttpRunsModule {
   static forRoot({

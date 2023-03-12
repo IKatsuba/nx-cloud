@@ -6,7 +6,7 @@
       "runner": "@nrwl/nx-cloud",
       "options": {
         "cacheableOperations": ["build", "lint", "test", "e2e"],
-        "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ3b3Jrc3BhY2VJZCI6ImZhZWFmNjc3LTZhMDEtNGZhYi1hNDBlLTc3NGM1ZGQwOGMwOCIsInBlcm1pc3Npb25zIjpbInJlYWQ6Y2FjaGUiLCJ3cml0ZTpjYWNoZSJdLCJpYXQiOjE2Njg5NDY0NTN9.wtjdtHVtQbusnx4NiI2ldvUv0ItWkWfjjQFiVgpV-XQ",
+        "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ3b3Jrc3BhY2VJZCI6IjZjMzMyYjQ5LTlhN2QtNDM4YS1iNDkwLTY1ODQxZTNjMTY1NCIsInBlcm1pc3Npb25zIjpbInJlYWQ6Y2FjaGUiLCJ3cml0ZTpjYWNoZSJdLCJpYXQiOjE2Nzg2MzY3ODN9.EJ0T-9wd-Iyj0eKoVO3u0srfnRfjg-81Oh3or9dsujs",
         "url": "http://localhost:3333",
         "canTrackAnalytics": true
       }

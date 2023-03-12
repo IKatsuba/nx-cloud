@@ -27,7 +27,9 @@ export class ExecutionService {
     executionEntity.command = param.command;
     executionEntity.tasks = new Collection<TaskEntity>(
       executionEntity,
-      (param.tasks || []).map((task) => this.taskRepository.create(task))
+      (param.tasks || []).map((task) =>
+        this.taskRepository.create({ ...task, execution: executionEntity })
+      )
     );
     executionEntity.maxParallel = param.maxParallel;
     executionEntity.isCompleted = param.isCompleted ?? false;

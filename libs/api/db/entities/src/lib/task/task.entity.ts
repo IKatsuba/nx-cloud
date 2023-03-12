@@ -45,6 +45,12 @@ export class TaskEntity implements Task {
   cacheStatus: 'cache-miss' | 'local-cache-hit' | 'remote-cache-hit' =
     'cache-miss';
 
+  @Property()
+  createdAt = new Date();
+
+  @Property({ onUpdate: () => new Date() })
+  updatedAt = new Date();
+
   @ManyToOne({
     entity: () => ExecutionEntity,
     inversedBy: (execution) => execution.tasks,

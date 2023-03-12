@@ -26,4 +26,25 @@ export class TaskService {
       isCompleted: false,
     });
   }
+
+  async findTaskWithoutCache(workspaceId: string, hash: string) {
+    return this.taskRepository.findOne(
+      {
+        execution: {
+          runGroup: {
+            workspace: {
+              id: workspaceId,
+            },
+          },
+        },
+        hash,
+        cacheStatus: 'cache-miss',
+      },
+      {
+        orderBy: {
+          startTime: 'desc',
+        },
+      }
+    );
+  }
 }

@@ -33,6 +33,7 @@
       ],
       "@nx-cloud/api/http/stats": ["libs/api/http/stats/src/index.ts"],
       "@nx-cloud/api/models": ["libs/api/models/src/index.ts"],
+      "@nx-cloud/api/stats": ["libs/api/stats/src/index.ts"],
       "@nx-cloud/api/storage": ["libs/api/storage/src/index.ts"]
     }
   },

@@ -20,6 +20,7 @@ import {
   WorkspaceEntity,
 } from '@nx-cloud/api/db/entities';
 import * as bodyParser from 'body-parser';
+import { PrometheusStatsModule } from '@nx-cloud/api/stats';
 
 @Module({
   imports: [
@@ -59,6 +60,7 @@ import * as bodyParser from 'body-parser';
     ApiHttpPingModule,
     ApiHttpStatsModule,
     ApiHttpExecutionsModule,
+    PrometheusStatsModule,
   ],
 })
 export class AppModule implements NestModule {
