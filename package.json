@@ -70,7 +70,7 @@
     "passport": "^0.6.0",
     "passport-jwt": "^4.0.0",
     "pino-http": "^8.2.1",
-    "pino-pretty": "^9.4.0",
+    "pino-pretty": "^10.0.0",
     "prom-client": "^14.2.0",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.0.0",
