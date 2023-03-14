@@ -29,7 +29,7 @@
     "@swc/cli": "~0.1.55",
     "@swc/core": "^1.2.173",
     "@types/jest": "29.4.1",
-    "@types/node": "18.15.2",
+    "@types/node": "18.15.3",
     "@types/passport-jwt": "^3.0.7",
     "@typescript-eslint/eslint-plugin": "^5.36.1",
     "@typescript-eslint/parser": "^5.36.1",
