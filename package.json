@@ -12,7 +12,7 @@
   "devDependencies": {
     "@golevelup/ts-jest": "0.3.5",
     "@nestjs/schematics": "^9.0.0",
-    "@nestjs/testing": "^9.0.0",
+    "@nestjs/testing": "^9.3.12",
     "@nrwl/cli": "15.8.6",
     "@nrwl/devkit": "15.8.6",
     "@nrwl/esbuild": "15.8.6",
