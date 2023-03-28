@@ -32,7 +32,7 @@
     "@types/node": "18.15.10",
     "@types/passport-jwt": "^3.0.7",
     "@typescript-eslint/eslint-plugin": "^5.36.1",
-    "@typescript-eslint/parser": "^5.36.1",
+    "@typescript-eslint/parser": "^5.57.0",
     "esbuild": "^0.17.5",
     "eslint": "~8.15.0",
     "eslint-config-prettier": "8.1.0",
