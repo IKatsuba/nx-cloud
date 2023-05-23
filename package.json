@@ -47,7 +47,7 @@
     "typescript": "4.9.5"
   },
   "dependencies": {
-    "@aws-sdk/client-s3": "3.299.0",
+    "@aws-sdk/client-s3": "3.337.0",
     "@aws-sdk/s3-request-presigner": "3.299.0",
     "@mikro-orm/core": "5.6.15",
     "@mikro-orm/migrations": "5.6.15",
