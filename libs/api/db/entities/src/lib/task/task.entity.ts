@@ -5,9 +5,9 @@ import {
   PrimaryKey,
   Property,
 } from '@mikro-orm/core';
-import { Task } from '@nx-cloud/api/models';
 import { ExecutionEntity } from '../execution/execution.entity';
 import { v4 } from 'uuid';
+import { Task } from '@nx-turbo/api-models';
 
 @Entity()
 export class TaskEntity implements Task {

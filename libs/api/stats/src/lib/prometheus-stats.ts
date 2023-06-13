@@ -1,11 +1,11 @@
 import { Stats } from './stats';
-import { Task, Workspace } from '@nx-cloud/api/models';
 import { Injectable } from '@nestjs/common';
 import { Request } from 'express';
 import { InjectMetric } from '@willsoto/nestjs-prometheus';
 import { Histogram } from 'prom-client';
-import { WorkspaceEntity } from '@nx-cloud/api/db/entities';
 import { Logger } from 'nestjs-pino';
+import { Task, Workspace } from '@nx-turbo/api-models';
+import { WorkspaceEntity } from '@nx-turbo/api-db-entities';
 
 @Injectable()
 export class PrometheusStats extends Stats {

@@ -5,9 +5,9 @@ import {
   PrimaryKey,
   Property,
 } from '@mikro-orm/core';
-import { Workspace } from '@nx-cloud/api/models';
 import { v4 } from 'uuid';
 import { RunGroupEntity } from '../run-group/run-group.entity';
+import { Workspace } from '@nx-turbo/api-models';
 
 @Entity()
 export class WorkspaceEntity implements Workspace {

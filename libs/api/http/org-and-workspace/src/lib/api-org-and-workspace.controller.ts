@@ -1,11 +1,11 @@
 import { Body, Controller, Post } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@mikro-orm/nestjs';
-import { WorkspaceEntity } from '@nx-cloud/api/db/entities';
 import { EntityRepository } from '@mikro-orm/core';
-import { TokenPermission } from '@nx-cloud/api/auth';
-import { Environment } from '@nx-cloud/api/models';
 import { ConfigService } from '@nestjs/config';
+import { WorkspaceEntity } from '@nx-turbo/api-db-entities';
+import { Environment } from '@nx-turbo/api-models';
+import { TokenPermission } from '@nx-turbo/api-auth';
 
 @Controller('create-org-and-workspace')
 export class ApiOrgAndWorkspaceController {

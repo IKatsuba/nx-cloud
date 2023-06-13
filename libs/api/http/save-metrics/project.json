@@ -1,18 +1,29 @@
 {
-  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "name": "api-http-save-metrics",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/api/http/save-metrics/src",
   "projectType": "library",
   "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/api-http-save-metrics",
+        "tsConfig": "libs/api/http/save-metrics/tsconfig.lib.json",
+        "packageJson": "libs/api/http/save-metrics/package.json",
+        "main": "libs/api/http/save-metrics/src/index.ts",
+        "assets": ["libs/api/http/save-metrics/*.md"]
+      }
+    },
     "lint": {
-      "executor": "@nrwl/linter:eslint",
+      "executor": "@nx/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": ["libs/api/http/save-metrics/**/*.ts"]
       }
     },
     "test": {
-      "executor": "@nrwl/jest:jest",
+      "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
         "jestConfig": "libs/api/http/save-metrics/jest.config.ts",

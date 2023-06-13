@@ -1,4 +1,4 @@
-import { readJson, runNxCommandAsync } from '@nrwl/nx-plugin/testing';
+import { readJson, runNxCommandAsync } from '@nx/plugin/testing';
 import { addPackageToPackageJson, createWorkspace } from './utils';
 
 describe('api e2e', () => {
@@ -12,7 +12,7 @@ describe('api e2e', () => {
     createWorkspace();
     addPackageToPackageJson('@nrwl/nx-cloud');
     // const project = uniq('app');
-    // await runNxCommandAsync(`generate @nrwl/node:application ${project}`);
+    // await runNxCommandAsync(`generate @nx/node:application ${project}`);
   }, 120000);
 
   afterAll(() => {

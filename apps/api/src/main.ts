@@ -8,7 +8,7 @@ import { NestFactory } from '@nestjs/core';
 
 import { AppModule } from './app/app.module';
 import { ConfigService } from '@nestjs/config';
-import { Environment } from '@nx-cloud/api/models';
+import { Environment } from '@nx-turbo/api-models';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {

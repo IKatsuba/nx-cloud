@@ -7,10 +7,10 @@ import {
   PrimaryKey,
   Property,
 } from '@mikro-orm/core';
-import { RunGroup } from '@nx-cloud/api/models';
 import { v4 } from 'uuid';
 import { WorkspaceEntity } from '../workspace/workspace.entity';
 import { ExecutionEntity } from '../execution/execution.entity';
+import { RunGroup } from '@nx-turbo/api-models';
 
 @Entity()
 export class RunGroupEntity implements RunGroup {

@@ -7,7 +7,7 @@ import {
   RunGroupModule,
   TaskModule,
   WorkspaceModule,
-} from '@nx-cloud/api/db/entities';
+} from '@nx-turbo/api-db-entities';
 
 @Module({
   controllers: [RunsController],

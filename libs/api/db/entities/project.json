@@ -4,15 +4,26 @@
   "sourceRoot": "libs/api/db/entities/src",
   "projectType": "library",
   "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/api-db-entities",
+        "tsConfig": "libs/api/db/entities/tsconfig.lib.json",
+        "packageJson": "libs/api/db/entities/package.json",
+        "main": "libs/api/db/entities/src/index.ts",
+        "assets": ["libs/api/db/entities/*.md"]
+      }
+    },
     "lint": {
-      "executor": "@nrwl/linter:eslint",
+      "executor": "@nx/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": ["libs/api/db/entities/**/*.ts"]
       }
     },
     "test": {
-      "executor": "@nrwl/jest:jest",
+      "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
         "jestConfig": "libs/api/db/entities/jest.config.ts",

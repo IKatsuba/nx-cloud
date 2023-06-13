@@ -1,5 +1,5 @@
 import { Body, Controller, Post, UseGuards } from '@nestjs/common';
-import { JwtAuthGuard } from '@nx-cloud/api/auth';
+import { JwtAuthGuard } from '@nx-turbo/api-auth';
 
 @UseGuards(JwtAuthGuard)
 @Controller('save-metrics')

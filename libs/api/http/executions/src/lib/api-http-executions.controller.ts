@@ -1,12 +1,12 @@
 import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
-import { JwtAuthGuard, WorkspaceId } from '@nx-cloud/api/auth';
+import { JwtAuthGuard, WorkspaceId } from '@nx-turbo/api-auth';
 import {
   ExecutionService,
   RunGroupService,
   TaskService,
   WorkspaceService,
-} from '@nx-cloud/api/db/entities';
-import { Task } from '@nx-cloud/api/models';
+} from '@nx-turbo/api-db-entities';
+import { Task } from '@nx-turbo/api-models';
 
 @UseGuards(JwtAuthGuard)
 @Controller('executions')

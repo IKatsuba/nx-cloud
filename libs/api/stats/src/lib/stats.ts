@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { Task, Workspace } from '@nx-cloud/api/models';
 import { Request } from 'express';
+import { Task, Workspace } from '@nx-turbo/api-models';
 
 @Injectable()
 export abstract class Stats {

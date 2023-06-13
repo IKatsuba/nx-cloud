@@ -1,4 +1,5 @@
-import { RunGroup, Task } from '@nx-cloud/api/models';
+import { RunGroup } from './run-group';
+import { Task } from './task';
 
 export interface Execution {
   runGroup: RunGroup;

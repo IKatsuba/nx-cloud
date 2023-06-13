@@ -4,15 +4,26 @@
   "sourceRoot": "libs/api/http/executions/src",
   "projectType": "library",
   "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/api-http-executions",
+        "tsConfig": "libs/api/http/executions/tsconfig.lib.json",
+        "packageJson": "libs/api/http/executions/package.json",
+        "main": "libs/api/http/executions/src/index.ts",
+        "assets": ["libs/api/http/executions/*.md"]
+      }
+    },
     "lint": {
-      "executor": "@nrwl/linter:eslint",
+      "executor": "@nx/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": ["libs/api/http/executions/**/*.ts"]
       }
     },
     "test": {
-      "executor": "@nrwl/jest:jest",
+      "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
         "jestConfig": "libs/api/http/executions/jest.config.ts",

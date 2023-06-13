@@ -15,26 +15,26 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@nx-cloud/api/auth": ["libs/api/auth/src/index.ts"],
-      "@nx-cloud/api/db/entities": ["libs/api/db/entities/src/index.ts"],
-      "@nx-cloud/api/http/executions": [
+      "@nx-turbo/api-auth": ["libs/api/auth/src/index.ts"],
+      "@nx-turbo/api-db-entities": ["libs/api/db/entities/src/index.ts"],
+      "@nx-turbo/api-http-executions": [
         "libs/api/http/executions/src/index.ts"
       ],
-      "@nx-cloud/api/http/org-and-workspace": [
+      "@nx-turbo/api-http-org-and-workspace": [
         "libs/api/http/org-and-workspace/src/index.ts"
       ],
-      "@nx-cloud/api/http/ping": ["libs/api/http/ping/src/index.ts"],
-      "@nx-cloud/api/http/report-client-error": [
+      "@nx-turbo/api-http-ping": ["libs/api/http/ping/src/index.ts"],
+      "@nx-turbo/api-http-report-client-error": [
         "libs/api/http/report-client-error/src/index.ts"
       ],
-      "@nx-cloud/api/http/runs": ["libs/api/http/runs/src/index.ts"],
-      "@nx-cloud/api/http/save-metrics": [
+      "@nx-turbo/api-http-runs": ["libs/api/http/runs/src/index.ts"],
+      "@nx-turbo/api-http-save-metrics": [
         "libs/api/http/save-metrics/src/index.ts"
       ],
-      "@nx-cloud/api/http/stats": ["libs/api/http/stats/src/index.ts"],
-      "@nx-cloud/api/models": ["libs/api/models/src/index.ts"],
-      "@nx-cloud/api/stats": ["libs/api/stats/src/index.ts"],
-      "@nx-cloud/api/storage": ["libs/api/storage/src/index.ts"]
+      "@nx-turbo/api-http-stats": ["libs/api/http/stats/src/index.ts"],
+      "@nx-turbo/api-models": ["libs/api/models/src/index.ts"],
+      "@nx-turbo/api-stats": ["libs/api/stats/src/index.ts"],
+      "@nx-turbo/api-storage": ["libs/api/storage/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

@@ -2,11 +2,11 @@ import { Injectable } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import { InjectRepository } from '@mikro-orm/nestjs';
-import { WorkspaceEntity } from '@nx-cloud/api/db/entities';
 import { EntityRepository } from '@mikro-orm/postgresql';
 import { TokenPermission } from './token-permissions.decorator';
-import { Environment } from '@nx-cloud/api/models';
 import { ConfigService } from '@nestjs/config';
+import { WorkspaceEntity } from '@nx-turbo/api-db-entities';
+import { Environment } from '@nx-turbo/api-models';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {

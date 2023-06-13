@@ -5,14 +5,15 @@
   "sourceRoot": "/src",
   "targets": {
     "e2e": {
-      "executor": "@nrwl/nx-plugin:e2e",
+      "executor": "@nx/jest:jest",
       "options": {
-        "target": "lib:build",
-        "jestConfig": "apps/api-e2e/jest.config.ts"
-      }
+        "jestConfig": "apps/api-e2e/jest.config.ts",
+        "runInBand": true
+      },
+      "dependsOn": ["lib:build"]
     },
     "lint": {
-      "executor": "@nrwl/linter:eslint",
+      "executor": "@nx/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": ["apps/api-e2e/**/*.ts"]

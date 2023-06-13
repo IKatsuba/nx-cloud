@@ -1,18 +1,29 @@
 {
-  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "name": "api-http-org-and-workspace",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/api/http/org-and-workspace/src",
   "projectType": "library",
   "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/api-http-org-and-workspace",
+        "tsConfig": "libs/api/http/org-and-workspace/tsconfig.lib.json",
+        "packageJson": "libs/api/http/org-and-workspace/package.json",
+        "main": "libs/api/http/org-and-workspace/src/index.ts",
+        "assets": ["libs/api/http/org-and-workspace/*.md"]
+      }
+    },
     "lint": {
-      "executor": "@nrwl/linter:eslint",
+      "executor": "@nx/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": ["libs/api/http/org-and-workspace/**/*.ts"]
       }
     },
     "test": {
-      "executor": "@nrwl/jest:jest",
+      "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
         "jestConfig": "libs/api/http/org-and-workspace/jest.config.ts",

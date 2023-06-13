@@ -1,5 +1,3 @@
-import { Execution } from '@nx-cloud/api/models';
-import { RunGroupEntity, TaskEntity } from '@nx-cloud/api/db/entities';
 import {
   Collection,
   Entity,
@@ -10,6 +8,9 @@ import {
   Property,
 } from '@mikro-orm/core';
 import { v4 } from 'uuid';
+import { Execution } from '@nx-turbo/api-models';
+import { RunGroupEntity } from '../run-group/run-group.entity';
+import { TaskEntity } from '../task/task.entity';
 
 @Entity()
 export class ExecutionEntity implements Omit<Execution, 'tasks'> {

@@ -4,15 +4,26 @@
   "sourceRoot": "libs/api/http/stats/src",
   "projectType": "library",
   "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/api-http-stats",
+        "tsConfig": "libs/api/http/stats/tsconfig.lib.json",
+        "packageJson": "libs/api/http/stats/package.json",
+        "main": "libs/api/http/stats/src/index.ts",
+        "assets": ["libs/api/http/stats/*.md"]
+      }
+    },
     "lint": {
-      "executor": "@nrwl/linter:eslint",
+      "executor": "@nx/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": ["libs/api/http/stats/**/*.ts"]
       }
     },
     "test": {
-      "executor": "@nrwl/jest:jest",
+      "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
         "jestConfig": "libs/api/http/stats/jest.config.ts",

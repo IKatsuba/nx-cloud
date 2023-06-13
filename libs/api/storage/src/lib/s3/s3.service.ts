@@ -9,8 +9,8 @@ import {
 import { catchError, lastValueFrom, map, of } from 'rxjs';
 import { HttpService } from '@nestjs/axios';
 import { Storage } from '../storage';
-import { Environment } from '@nx-cloud/api/models';
 import { ConfigService } from '@nestjs/config';
+import { Environment } from '@nx-turbo/api-models';
 
 @Injectable()
 export class S3Service extends Storage {

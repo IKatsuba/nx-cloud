@@ -3,9 +3,9 @@ import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
 import { JwtStrategy } from './jwt.strategy';
 import { MikroOrmModule } from '@mikro-orm/nestjs';
-import { WorkspaceEntity } from '@nx-cloud/api/db/entities';
 import { ConfigService } from '@nestjs/config';
-import { Environment } from '@nx-cloud/api/models';
+import { WorkspaceEntity } from '@nx-turbo/api-db-entities';
+import { Environment } from '@nx-turbo/api-models';
 
 @Module({
   imports: [
