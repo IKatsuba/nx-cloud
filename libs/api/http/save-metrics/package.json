@@ -1,5 +1,8 @@
 {
   "name": "@nx-turbo/api-http-save-metrics",
   "version": "0.0.0-development",
-  "type": "commonjs"
+  "type": "commonjs",
+  "publishConfig": {
+    "access": "public"
+  }
 }
