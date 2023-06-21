@@ -1,0 +1,20 @@
+module.exports = {
+  branches: ['main'],
+  plugins: [
+    '@semantic-release/commit-analyzer',
+    '@semantic-release/release-notes-generator',
+    '@semantic-release/github',
+    ['@semantic-release/npm', { pkgRoot: 'api-auth' }],
+    ['@semantic-release/npm', { pkgRoot: 'api-db-entities' }],
+    ['@semantic-release/npm', { pkgRoot: 'api-http-executions' }],
+    ['@semantic-release/npm', { pkgRoot: 'api-http-org-and-workspace' }],
+    ['@semantic-release/npm', { pkgRoot: 'api-http-ping' }],
+    ['@semantic-release/npm', { pkgRoot: 'api-http-report-client-error' }],
+    ['@semantic-release/npm', { pkgRoot: 'api-http-runs' }],
+    ['@semantic-release/npm', { pkgRoot: 'api-http-save-metrics' }],
+    ['@semantic-release/npm', { pkgRoot: 'api-http-stats' }],
+    ['@semantic-release/npm', { pkgRoot: 'api-models' }],
+    ['@semantic-release/npm', { pkgRoot: 'api-stats' }],
+    ['@semantic-release/npm', { pkgRoot: 'api-storage' }],
+  ],
+};

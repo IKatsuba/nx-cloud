@@ -6,7 +6,7 @@
       "runner": "nx-cloud",
       "options": {
         "cacheableOperations": ["build", "lint", "test", "e2e"],
-        "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ3b3Jrc3BhY2VJZCI6Ijk5ZWZlOGNhLTEyMzgtNGNiYi05NmU3LTYzMWM2NTIyM2M0MCIsInBlcm1pc3Npb25zIjpbInJlYWQ6Y2FjaGUiLCJ3cml0ZTpjYWNoZSJdLCJpYXQiOjE2ODU5NjgzMzF9.Bkb1Rr3FOVYAvMflExX8KtR0qOU-hXeBbOkaJ3o9Ny4",
+        "accessToken": "MzlkMjJhNGMtYmQ1Mi00ZWQ1LTk1NWYtMTliOGYwYmM2NDhjfHJlYWQtd3JpdGU=",
         "url": "http://localhost:3333",
         "canTrackAnalytics": true
       }
