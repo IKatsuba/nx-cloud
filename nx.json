@@ -6,8 +6,8 @@
       "runner": "nx-cloud",
       "options": {
         "cacheableOperations": ["build", "lint", "test", "e2e"],
-        "accessToken": "MzlkMjJhNGMtYmQ1Mi00ZWQ1LTk1NWYtMTliOGYwYmM2NDhjfHJlYWQtd3JpdGU=",
-        "url": "http://localhost:3333",
+        "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ3b3Jrc3BhY2VJZCI6IjlhZTFkNGZkLTZiODYtNGUyOS1iNzg3LTQ0MDI5NTkwNWE3MSIsInBlcm1pc3Npb25zIjpbInJlYWQ6Y2FjaGUiLCJ3cml0ZTpjYWNoZSJdLCJpYXQiOjE2ODc5MDQ5MDZ9.rDLs6Xw8xtbF84serq5wk3jIGGsDxl3agM7zOkwgHhU",
+        "url": "http://localhost:3000",
         "canTrackAnalytics": true
       }
     }
