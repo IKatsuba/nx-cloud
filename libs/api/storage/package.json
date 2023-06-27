@@ -1,5 +1,5 @@
 {
-  "name": "@nx-turbo/storage",
+  "name": "@nx-turbo/api-storage",
   "version": "0.0.0-development",
   "type": "commonjs",
   "publishConfig": {
