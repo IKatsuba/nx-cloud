@@ -3,6 +3,7 @@
   "version": "0.0.0-development",
   "license": "MIT",
   "scripts": {
+    "start": "node dist/apps/api/main.js",
     "migrations:run": "ts-node -r tsconfig-paths/register -P scripts/tsconfig.json scripts/migrations.ts"
   },
   "private": true,

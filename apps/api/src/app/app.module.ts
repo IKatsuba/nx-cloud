@@ -5,6 +5,7 @@ import { environment } from '../environments/environment';
 import { LoggerModule } from 'nestjs-pino';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { ReflectMetadataProvider } from '@mikro-orm/core';
+import { defineConfig } from '@mikro-orm/postgresql';
 
 import * as bodyParser from 'body-parser';
 import { ApiAuthModule } from '@nx-turbo/api-auth';
@@ -43,16 +44,16 @@ import { PrometheusStatsModule } from '@nx-turbo/api-stats';
     }),
     ApiAuthModule,
     MikroOrmModule.forRootAsync({
-      useFactory: (configService: ConfigService<Environment>) => ({
-        type: 'postgresql' as const,
-        host: configService.get('DB_HOST', 'localhost'),
-        port: parseInt(configService.get('DB_PORT', '5432'), 10),
-        dbName: configService.get('DB_NAME', 'postgres'),
-        password: configService.get('DB_PASSWORD', null),
-        user: configService.get('DB_USER', null),
-        metadataProvider: ReflectMetadataProvider,
-        entities: [WorkspaceEntity, TaskEntity, ExecutionEntity],
-      }),
+      useFactory: (configService: ConfigService<Environment>) =>
+        defineConfig({
+          host: configService.get('DB_HOST', 'localhost'),
+          port: parseInt(configService.get('DB_PORT', '5432'), 10),
+          dbName: configService.get('DB_NAME', 'postgres'),
+          password: configService.get('DB_PASSWORD', null),
+          user: configService.get('DB_USER', null),
+          metadataProvider: ReflectMetadataProvider,
+          entities: [WorkspaceEntity, TaskEntity, ExecutionEntity],
+        }),
       inject: [ConfigService],
     }),
     ApiHttpOrgAndWorkspaceModule,
