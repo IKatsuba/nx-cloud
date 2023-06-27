@@ -12,7 +12,8 @@
         "tsConfig": "libs/api/storage/tsconfig.lib.json",
         "packageJson": "libs/api/storage/package.json",
         "main": "libs/api/storage/src/index.ts",
-        "assets": ["libs/api/storage/*.md"]
+        "assets": ["libs/api/storage/*.md"],
+        "updateBuildableProjectDepsInPackageJson": false
       }
     },
     "lint": {

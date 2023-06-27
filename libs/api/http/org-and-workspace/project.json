@@ -12,7 +12,8 @@
         "tsConfig": "libs/api/http/org-and-workspace/tsconfig.lib.json",
         "packageJson": "libs/api/http/org-and-workspace/package.json",
         "main": "libs/api/http/org-and-workspace/src/index.ts",
-        "assets": ["libs/api/http/org-and-workspace/*.md"]
+        "assets": ["libs/api/http/org-and-workspace/*.md"],
+        "updateBuildableProjectDepsInPackageJson": false
       }
     },
     "lint": {

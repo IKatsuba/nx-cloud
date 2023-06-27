@@ -12,7 +12,8 @@
         "tsConfig": "libs/api/http/report-client-error/tsconfig.lib.json",
         "packageJson": "libs/api/http/report-client-error/package.json",
         "main": "libs/api/http/report-client-error/src/index.ts",
-        "assets": ["libs/api/http/report-client-error/*.md"]
+        "assets": ["libs/api/http/report-client-error/*.md"],
+        "updateBuildableProjectDepsInPackageJson": false
       }
     },
     "lint": {

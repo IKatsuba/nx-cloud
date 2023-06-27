@@ -12,7 +12,8 @@
         "tsConfig": "libs/api/auth/tsconfig.lib.json",
         "packageJson": "libs/api/auth/package.json",
         "main": "libs/api/auth/src/index.ts",
-        "assets": ["libs/api/auth/*.md"]
+        "assets": ["libs/api/auth/*.md"],
+        "updateBuildableProjectDepsInPackageJson": false
       }
     },
     "lint": {

@@ -12,7 +12,8 @@
         "tsConfig": "libs/api/http/ping/tsconfig.lib.json",
         "packageJson": "libs/api/http/ping/package.json",
         "main": "libs/api/http/ping/src/index.ts",
-        "assets": ["libs/api/http/ping/*.md"]
+        "assets": ["libs/api/http/ping/*.md"],
+        "updateBuildableProjectDepsInPackageJson": false
       }
     },
     "lint": {

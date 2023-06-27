@@ -12,7 +12,8 @@
         "tsConfig": "libs/api/db/entities/tsconfig.lib.json",
         "packageJson": "libs/api/db/entities/package.json",
         "main": "libs/api/db/entities/src/index.ts",
-        "assets": ["libs/api/db/entities/*.md"]
+        "assets": ["libs/api/db/entities/*.md"],
+        "updateBuildableProjectDepsInPackageJson": false
       }
     },
     "lint": {

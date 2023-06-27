@@ -12,7 +12,8 @@
         "tsConfig": "libs/api/http/runs/tsconfig.lib.json",
         "packageJson": "libs/api/http/runs/package.json",
         "main": "libs/api/http/runs/src/index.ts",
-        "assets": ["libs/api/http/runs/*.md"]
+        "assets": ["libs/api/http/runs/*.md"],
+        "updateBuildableProjectDepsInPackageJson": false
       }
     },
     "lint": {

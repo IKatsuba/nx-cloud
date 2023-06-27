@@ -12,7 +12,8 @@
         "tsConfig": "libs/api/stats/tsconfig.lib.json",
         "packageJson": "libs/api/stats/package.json",
         "main": "libs/api/stats/src/index.ts",
-        "assets": ["libs/api/stats/*.md"]
+        "assets": ["libs/api/stats/*.md"],
+        "updateBuildableProjectDepsInPackageJson": false
       }
     },
     "lint": {

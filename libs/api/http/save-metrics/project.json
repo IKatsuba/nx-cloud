@@ -12,7 +12,8 @@
         "tsConfig": "libs/api/http/save-metrics/tsconfig.lib.json",
         "packageJson": "libs/api/http/save-metrics/package.json",
         "main": "libs/api/http/save-metrics/src/index.ts",
-        "assets": ["libs/api/http/save-metrics/*.md"]
+        "assets": ["libs/api/http/save-metrics/*.md"],
+        "updateBuildableProjectDepsInPackageJson": false
       }
     },
     "lint": {
