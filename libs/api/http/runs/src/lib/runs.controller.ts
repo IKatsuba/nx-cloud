@@ -14,6 +14,7 @@ import {
 } from '@nx-turbo/api-db-entities';
 import { RunGroup, Task } from '@nx-turbo/api-models';
 import { Stats } from '@nx-turbo/api-stats';
+import { Storage } from '@nx-turbo/api-storage';
 
 @UseGuards(JwtAuthGuard)
 @Controller('runs')
