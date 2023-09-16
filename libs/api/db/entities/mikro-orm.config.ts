@@ -1,4 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const { ReflectMetadataProvider } = require('@mikro-orm/core');
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const { Workspace } = require('./src');
 module.exports = {
   type: 'postgresql',

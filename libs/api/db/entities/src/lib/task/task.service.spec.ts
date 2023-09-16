@@ -1,8 +1,9 @@
-import { TaskEntity, TaskService } from '@nx-cloud/api/db/entities';
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@mikro-orm/nestjs';
 import { createMock, DeepMocked } from '@golevelup/ts-jest';
 import { EntityRepository } from '@mikro-orm/postgresql';
+import { TaskService } from './task.service';
+import { TaskEntity } from './task.entity';
 
 describe('TaskService', () => {
   let service: TaskService;

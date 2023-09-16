@@ -1,12 +1,13 @@
 import { Test } from '@nestjs/testing';
 import { ApiHttpExecutionsController } from './api-http-executions.controller';
+
+import { createMock, DeepMocked } from '@golevelup/ts-jest';
 import {
   ExecutionService,
   RunGroupService,
   TaskService,
   WorkspaceService,
-} from '@nx-cloud/api/db/entities';
-import { createMock, DeepMocked } from '@golevelup/ts-jest';
+} from '@nx-turbo/api-db-entities';
 
 describe('ApiHttpExecutionsController', () => {
   let controller: ApiHttpExecutionsController;

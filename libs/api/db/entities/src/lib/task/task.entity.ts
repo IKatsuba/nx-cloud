@@ -32,8 +32,8 @@ export class TaskEntity implements Task {
   @Property()
   hash: string;
 
-  @Property()
-  isCompleted: boolean = false;
+  @Property({ type: 'boolean' })
+  isCompleted = false;
 
   @Property({ nullable: true })
   startTime: string;

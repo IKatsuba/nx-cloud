@@ -1,13 +1,14 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { RunsController } from './runs.controller';
-import { Storage } from '@nx-cloud/api/storage';
+import { Storage } from '@nx-turbo/api-storage';
 import { createMock, DeepMocked } from '@golevelup/ts-jest';
-import { TokenPermission } from '@nx-cloud/api/auth';
+import { TokenPermission } from '@nx-turbo/api-auth';
 import {
   ExecutionService,
   RunGroupService,
+  TaskService,
   WorkspaceService,
-} from '@nx-cloud/api/db/entities';
+} from '@nx-turbo/api-db-entities';
 
 describe('RunsController', () => {
   let controller: RunsController;
@@ -33,6 +34,10 @@ describe('RunsController', () => {
           provide: ExecutionService,
           useValue: createMock<ExecutionService>(),
         },
+        {
+          provide: TaskService,
+          useValue: createMock<TaskService>(),
+        },
       ],
     }).compile();
 
@@ -47,7 +52,7 @@ describe('RunsController', () => {
   it('should return null urls if it has no permissions', async () => {
     expect.assertions(1);
 
-    expect(await controller.start(['hash1', 'hash2'], [])).toEqual({
+    expect(await controller.start(['hash1', 'hash2'], '', '', [])).toEqual({
       urls: {
         hash1: {
           get: null,
@@ -68,10 +73,10 @@ describe('RunsController', () => {
     storage.createPutSignedUrl.mockResolvedValue('put-url');
 
     expect(
-      await controller.start(
-        ['hash1', 'hash2'],
-        [TokenPermission.ReadCache, TokenPermission.WriteCache]
-      )
+      await controller.start(['hash1', 'hash2'], '', '', [
+        TokenPermission.ReadCache,
+        TokenPermission.WriteCache,
+      ])
     ).toEqual({
       urls: {
         hash1: {
@@ -92,7 +97,9 @@ describe('RunsController', () => {
     storage.createGetSignedUrl.mockResolvedValue('get-url');
 
     expect(
-      await controller.start(['hash1', 'hash2'], [TokenPermission.ReadCache])
+      await controller.start(['hash1', 'hash2'], 'runGroup', 'branch', [
+        TokenPermission.ReadCache,
+      ])
     ).toEqual({
       urls: {
         hash1: {
@@ -113,7 +120,9 @@ describe('RunsController', () => {
     storage.createPutSignedUrl.mockResolvedValue('put-url');
 
     expect(
-      await controller.start(['hash1', 'hash2'], [TokenPermission.WriteCache])
+      await controller.start(['hash1', 'hash2'], 'runGroup', 'branch', [
+        TokenPermission.WriteCache,
+      ])
     ).toEqual({
       urls: {
         hash1: {

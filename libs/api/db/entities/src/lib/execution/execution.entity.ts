@@ -20,14 +20,14 @@ export class ExecutionEntity implements Omit<Execution, 'tasks'> {
   @Property()
   command: string;
 
-  @Property()
-  maxParallel: number = 3;
+  @Property({ type: 'number' })
+  maxParallel = 3;
 
-  @Property()
-  statusCode: number = 0;
+  @Property({ type: 'number' })
+  statusCode = 0;
 
-  @Property()
-  isCompleted: boolean = false;
+  @Property({ type: 'boolean' })
+  isCompleted = false;
 
   @ManyToOne({
     entity: () => RunGroupEntity,

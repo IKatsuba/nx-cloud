@@ -2,13 +2,11 @@ import { Test } from '@nestjs/testing';
 import { createMock, DeepMocked } from '@golevelup/ts-jest';
 import { EntityRepository } from '@mikro-orm/postgresql';
 import { getRepositoryToken } from '@mikro-orm/nestjs';
-import {
-  ExecutionEntity,
-  RunGroupEntity,
-  RunGroupService,
-  WorkspaceEntity,
-} from '@nx-cloud/api/db/entities';
 import { Collection } from '@mikro-orm/core';
+import { RunGroupEntity } from './run-group.entity';
+import { ExecutionEntity } from '../execution/execution.entity';
+import { RunGroupService } from './run-group.service';
+import { WorkspaceEntity } from '../workspace/workspace.entity';
 
 describe('RunGroupService', () => {
   let service: RunGroupService;

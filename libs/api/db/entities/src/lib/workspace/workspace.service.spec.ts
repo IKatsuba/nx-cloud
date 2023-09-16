@@ -1,8 +1,9 @@
-import { WorkspaceEntity, WorkspaceService } from '@nx-cloud/api/db/entities';
 import { createMock, DeepMocked } from '@golevelup/ts-jest';
 import { EntityRepository } from '@mikro-orm/postgresql';
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@mikro-orm/nestjs';
+import { WorkspaceService } from './workspace.service';
+import { WorkspaceEntity } from './workspace.entity';
 
 describe('WorkspaceService', () => {
   let service: WorkspaceService;

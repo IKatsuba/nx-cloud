@@ -2,10 +2,11 @@ import { createMock, DeepMocked } from '@golevelup/ts-jest';
 import { Test, TestingModule } from '@nestjs/testing';
 import { JwtStrategy } from './jwt.strategy';
 import { getRepositoryToken } from '@mikro-orm/nestjs';
-import { WorkspaceEntity } from '@nx-cloud/api/db/entities';
 import { EntityRepository } from '@mikro-orm/postgresql';
 import { ConfigService } from '@nestjs/config';
-import { Environment } from '@nx-cloud/api/models';
+import { ESLint } from 'eslint';
+import Environment = ESLint.Environment;
+import { WorkspaceEntity } from '@nx-turbo/api-db-entities';
 
 describe('JwtStrategy', () => {
   let moduleRef: TestingModule;

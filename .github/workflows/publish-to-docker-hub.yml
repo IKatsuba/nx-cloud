@@ -59,13 +59,6 @@ jobs:
         with:
           name: build
           path: dist
-      # assert that the dist folder exists
-      - name: Assert dist folder exists
-        run: |
-          if [ ! -d "dist" ]; then
-            echo "dist folder does not exist"
-            exit 1
-          fi
       - name: Build and push
         uses: docker/build-push-action@v4
         with:

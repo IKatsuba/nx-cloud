@@ -3,9 +3,9 @@ import { ApiOrgAndWorkspaceController } from './api-org-and-workspace.controller
 import { JwtService } from '@nestjs/jwt';
 import { createMock, DeepMocked } from '@golevelup/ts-jest';
 import { getRepositoryToken } from '@mikro-orm/nestjs';
-import { WorkspaceEntity } from '@nx-cloud/api/db/entities';
 import { EntityRepository } from '@mikro-orm/core';
 import { ConfigService } from '@nestjs/config';
+import { WorkspaceEntity } from '@nx-turbo/api-db-entities';
 
 describe('ApiOrgAndWorkspaceController', () => {
   let controller: ApiOrgAndWorkspaceController;
