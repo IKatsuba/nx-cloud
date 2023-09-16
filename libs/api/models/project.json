@@ -4,18 +4,6 @@
   "sourceRoot": "libs/api/models/src",
   "projectType": "library",
   "targets": {
-    "build": {
-      "executor": "@nx/js:tsc",
-      "outputs": ["{options.outputPath}"],
-      "options": {
-        "outputPath": "dist/libs/api-models",
-        "tsConfig": "libs/api/models/tsconfig.lib.json",
-        "packageJson": "libs/api/models/package.json",
-        "main": "libs/api/models/src/index.ts",
-        "assets": ["libs/api/models/*.md"],
-        "updateBuildableProjectDepsInPackageJson": false
-      }
-    },
     "lint": {
       "executor": "@nx/linter:eslint",
       "outputs": ["{options.outputFile}"],

@@ -1,15 +1,11 @@
-FROM node:18
+FROM node:18-alpine
 
 WORKDIR /app
 
 COPY . .
 
-ENV CI=true
-
-RUN npm ci && \
-    npx nx build api --configuration=production && \
-    npm prune --production
+RUN npm ci --omit=dev
 
 EXPOSE 3000
 
-CMD ["npm", "run", "start", "--silent"]
+CMD ["npm", "run", "start:prod", "--silent"]

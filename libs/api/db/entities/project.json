@@ -4,18 +4,6 @@
   "sourceRoot": "libs/api/db/entities/src",
   "projectType": "library",
   "targets": {
-    "build": {
-      "executor": "@nx/js:tsc",
-      "outputs": ["{options.outputPath}"],
-      "options": {
-        "outputPath": "dist/libs/api-db-entities",
-        "tsConfig": "libs/api/db/entities/tsconfig.lib.json",
-        "packageJson": "libs/api/db/entities/package.json",
-        "main": "libs/api/db/entities/src/index.ts",
-        "assets": ["libs/api/db/entities/*.md"],
-        "updateBuildableProjectDepsInPackageJson": false
-      }
-    },
     "lint": {
       "executor": "@nx/linter:eslint",
       "outputs": ["{options.outputFile}"],

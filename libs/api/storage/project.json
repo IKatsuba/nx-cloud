@@ -4,18 +4,6 @@
   "sourceRoot": "libs/api/storage/src",
   "projectType": "library",
   "targets": {
-    "build": {
-      "executor": "@nx/js:tsc",
-      "outputs": ["{options.outputPath}"],
-      "options": {
-        "outputPath": "dist/libs/api-storage",
-        "tsConfig": "libs/api/storage/tsconfig.lib.json",
-        "packageJson": "libs/api/storage/package.json",
-        "main": "libs/api/storage/src/index.ts",
-        "assets": ["libs/api/storage/*.md"],
-        "updateBuildableProjectDepsInPackageJson": false
-      }
-    },
     "lint": {
       "executor": "@nx/linter:eslint",
       "outputs": ["{options.outputFile}"],

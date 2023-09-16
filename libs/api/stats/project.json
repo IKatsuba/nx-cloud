@@ -4,18 +4,6 @@
   "sourceRoot": "libs/api/stats/src",
   "projectType": "library",
   "targets": {
-    "build": {
-      "executor": "@nx/js:tsc",
-      "outputs": ["{options.outputPath}"],
-      "options": {
-        "outputPath": "dist/libs/api-stats",
-        "tsConfig": "libs/api/stats/tsconfig.lib.json",
-        "packageJson": "libs/api/stats/package.json",
-        "main": "libs/api/stats/src/index.ts",
-        "assets": ["libs/api/stats/*.md"],
-        "updateBuildableProjectDepsInPackageJson": false
-      }
-    },
     "lint": {
       "executor": "@nx/linter:eslint",
       "outputs": ["{options.outputFile}"],

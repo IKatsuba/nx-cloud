@@ -4,18 +4,6 @@
   "sourceRoot": "libs/api/http/report-client-error/src",
   "projectType": "library",
   "targets": {
-    "build": {
-      "executor": "@nx/js:tsc",
-      "outputs": ["{options.outputPath}"],
-      "options": {
-        "outputPath": "dist/libs/api-http-report-client-error",
-        "tsConfig": "libs/api/http/report-client-error/tsconfig.lib.json",
-        "packageJson": "libs/api/http/report-client-error/package.json",
-        "main": "libs/api/http/report-client-error/src/index.ts",
-        "assets": ["libs/api/http/report-client-error/*.md"],
-        "updateBuildableProjectDepsInPackageJson": false
-      }
-    },
     "lint": {
       "executor": "@nx/linter:eslint",
       "outputs": ["{options.outputFile}"],

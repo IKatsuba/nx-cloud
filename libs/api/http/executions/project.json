@@ -4,18 +4,6 @@
   "sourceRoot": "libs/api/http/executions/src",
   "projectType": "library",
   "targets": {
-    "build": {
-      "executor": "@nx/js:tsc",
-      "outputs": ["{options.outputPath}"],
-      "options": {
-        "outputPath": "dist/libs/api-http-executions",
-        "tsConfig": "libs/api/http/executions/tsconfig.lib.json",
-        "packageJson": "libs/api/http/executions/package.json",
-        "main": "libs/api/http/executions/src/index.ts",
-        "assets": ["libs/api/http/executions/*.md"],
-        "updateBuildableProjectDepsInPackageJson": false
-      }
-    },
     "lint": {
       "executor": "@nx/linter:eslint",
       "outputs": ["{options.outputFile}"],
