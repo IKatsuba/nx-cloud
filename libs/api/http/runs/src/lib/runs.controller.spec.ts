@@ -52,18 +52,18 @@ describe('RunsController', () => {
   it('should return null urls if it has no permissions', async () => {
     expect.assertions(1);
 
-      expect(await controller.start(['hash1', 'hash2'], '', '', [])).toEqual({
-        urls: {
-          hash1: {
-            get: null,
-            put: null,
-          },
-          hash2: {
-            get: null,
-            put: null,
-          },
+    expect(await controller.start(['hash1', 'hash2'], '', '', [])).toEqual({
+      urls: {
+        hash1: {
+          get: null,
+          put: null,
         },
-      });
+        hash2: {
+          get: null,
+          put: null,
+        },
+      },
+    });
   });
 
   it('should return urls if it has permissions', async () => {
