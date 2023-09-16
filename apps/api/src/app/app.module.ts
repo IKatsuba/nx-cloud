@@ -28,7 +28,7 @@ import { PrometheusStatsModule } from '@nx-turbo/api-stats';
 @Module({
   imports: [
     ConfigModule.forRoot({
-      envFilePath: environment.production ? '.env' : '.env.dev',
+      envFilePath: '.env',
       isGlobal: true,
     }),
     LoggerModule.forRoot({
