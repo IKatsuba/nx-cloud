@@ -17,8 +17,8 @@ export class WorkspaceEntity implements Workspace {
   @Property()
   name: string;
 
-  @Property()
-  distributedBuildsEnabled: boolean = true;
+  @Property({ type: 'boolean' })
+  distributedBuildsEnabled = true;
 
   @OneToMany({
     entity: () => RunGroupEntity,

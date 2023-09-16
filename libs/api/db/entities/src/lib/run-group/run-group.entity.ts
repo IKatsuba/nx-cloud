@@ -27,8 +27,8 @@ export class RunGroupEntity implements RunGroup {
   })
   workspace: WorkspaceEntity;
 
-  @Property()
-  isCompleted: boolean = false;
+  @Property({ type: 'boolean' })
+  isCompleted = false;
 
   @OneToMany({
     entity: () => ExecutionEntity,

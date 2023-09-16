@@ -1,14 +1,12 @@
-import {
-  ExecutionEntity,
-  ExecutionService,
-  RunGroupEntity,
-  TaskEntity,
-} from '@nx-cloud/api/db/entities';
 import { Test } from '@nestjs/testing';
 import { getRepositoryToken } from '@mikro-orm/nestjs';
 import { createMock, DeepMocked } from '@golevelup/ts-jest';
 import { EntityRepository } from '@mikro-orm/postgresql';
 import { Collection } from '@mikro-orm/core';
+import { ExecutionService } from './execution.service';
+import { ExecutionEntity } from './execution.entity';
+import { TaskEntity } from '../task/task.entity';
+import { RunGroupEntity } from '../run-group/run-group.entity';
 
 describe('ExecutionService', () => {
   let service: ExecutionService;
