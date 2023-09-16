@@ -12,11 +12,30 @@ on:
       - 'main'
 
 jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: npm install and build
+        run: |
+          npm ci
+          npx nx build api -c=production
+      - name: Archive production artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: dist
+          path: |
+            dist
   publish:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+      - name: Download production artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: dist
       - name: Docker meta
         id: meta
         uses: docker/metadata-action@v4
