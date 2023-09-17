@@ -1,0 +1,1561 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Nx API",
+    "description": "Description of Nx API",
+    "version": "1.0.2"
+  },
+  "paths": {
+    "/nx-cloud/runs/start": {
+      "post": {
+        "summary": "Retrieves URLs for retrieving/storing cached artifacts",
+        "security": [
+          {
+            "auth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["hashes"],
+                "properties": {
+                  "branch": {
+                    "oneOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "runGroup": {
+                    "oneOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "ciExecutionId": {
+                    "oneOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "ciExecutionEnv": {
+                    "oneOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "distributedExecutionId": {
+                    "oneOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "hashes": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "machineInfo": {
+                    "$ref": "#/components/schemas/MachineInfo"
+                  },
+                  "meta": {
+                    "type": "object",
+                    "additionalProperties": true
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "urls": {
+                      "type": "object",
+                      "additionalProperties": {
+                        "type": "object",
+                        "properties": {
+                          "get": {
+                            "oneOf": [
+                              {
+                                "type": "string"
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
+                          },
+                          "sharedGet": {
+                            "oneOf": [
+                              {
+                                "type": "string"
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
+                          },
+                          "put": {
+                            "oneOf": [
+                              {
+                                "type": "string"
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/schemas/400"
+          },
+          "401": {
+            "$ref": "#/components/schemas/401"
+          }
+        }
+      }
+    },
+    "/nx-cloud/runs/end": {
+      "post": {
+        "summary": "Stores information about a run",
+        "security": [
+          {
+            "auth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["tasks", "run"],
+                "properties": {
+                  "tasks": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/Task"
+                    }
+                  },
+                  "machineId": {
+                    "type": "string"
+                  },
+                  "machineInfo": {
+                    "$ref": "#/components/schemas/MachineInfo"
+                  },
+                  "branch": {
+                    "oneOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "runGroup": {
+                    "oneOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "ciExecutionId": {
+                    "oneOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "ciExecutionEnv": {
+                    "oneOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "run": {
+                    "$ref": "#/components/schemas/RunData"
+                  },
+                  "linkId": {
+                    "type": "string"
+                  },
+                  "meta": {
+                    "additionalProperties": true
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "runUrl": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/schemas/400"
+          },
+          "401": {
+            "$ref": "#/components/schemas/401"
+          }
+        }
+      }
+    },
+    "/nx-cloud/save-metrics": {
+      "post": {
+        "summary": "Stores metrics collected by the task runner",
+        "security": [
+          {
+            "auth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["entries"],
+                "properties": {
+                  "entries": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/PerformanceEntry"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "runUrl": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/schemas/400"
+          },
+          "401": {
+            "$ref": "#/components/schemas/401"
+          }
+        }
+      }
+    },
+    "/nx-cloud/private/create-installation": {
+      "post": {
+        "summary": "Registers a private cloud installation",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": ["privateCloudAccessToken"],
+                  "properties": {
+                    "privateCloudAccessToken": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/nx-cloud/private/create-org": {
+      "post": {
+        "summary": "Create a public cloud counterpart for a private cloud org",
+        "security": [
+          {
+            "auth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["name", "privateCloudCounterpartId"],
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "privateCloudCounterpartId": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": ["id"],
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/schemas/401"
+          }
+        }
+      }
+    },
+    "/nx-cloud/private/create-workspace": {
+      "post": {
+        "summary": "Create a public cloud counterpart for a private cloud workspace",
+        "security": [
+          {
+            "auth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["orgId", "name", "privateCloudCounterpartId"],
+                "properties": {
+                  "orgId": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "privateCloudCounterpartId": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": ["id"],
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/schemas/401"
+          }
+        }
+      }
+    },
+    "/nx-cloud/private/workspace-status": {
+      "get": {
+        "summary": "Returns the status of a workspace",
+        "parameters": [
+          {
+            "name": "publicCloudCounterpartId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "security": [
+          {
+            "auth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": ["enabled"],
+                  "properties": {
+                    "enabled": {
+                      "type": "boolean"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/schemas/401"
+          }
+        }
+      }
+    },
+    "/nx-cloud/private/billing-usage": {
+      "post": {
+        "summary": "Returns the status of a workspace",
+        "security": [
+          {
+            "auth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "runId",
+                  "workspaceId",
+                  "startDate",
+                  "endDate",
+                  "seconds"
+                ],
+                "properties": {
+                  "runId": {
+                    "type": "string"
+                  },
+                  "workspaceId": {
+                    "type": "string"
+                  },
+                  "startDate": {
+                    "type": "string"
+                  },
+                  "endDate": {
+                    "type": "string"
+                  },
+                  "seconds": {
+                    "type": "number"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "$ref": "#/components/schemas/401"
+          }
+        }
+      }
+    },
+    "/nx-cloud/private/report-error": {
+      "post": {
+        "summary": "Report an error",
+        "security": [
+          {
+            "auth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["message", "stackTrace"],
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  },
+                  "stackTrace": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "$ref": "#/components/schemas/401"
+          }
+        }
+      }
+    },
+    "/ping": {
+      "get": {
+        "summary": "Test api",
+        "security": [
+          {
+            "auth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "$ref": "#/components/schemas/401"
+          }
+        }
+      }
+    },
+    "/nx-cloud/stats": {
+      "post": {
+        "summary": "Record stats about commands",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["command", "isCI", "useCloud"],
+                "properties": {
+                  "command": {
+                    "type": "string"
+                  },
+                  "isCI": {
+                    "type": "boolean"
+                  },
+                  "useCloud": {
+                    "type": "boolean"
+                  },
+                  "meta": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "$ref": "#/components/schemas/401"
+          }
+        }
+      }
+    },
+    "/nx-cloud/create-org-and-workspace": {
+      "post": {
+        "summary": "Create an org and a workspace",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [],
+                "properties": {
+                  "workspaceName": {
+                    "type": "string"
+                  },
+                  "installationSource": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "url": {
+                      "type": "string"
+                    },
+                    "token": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/schemas/401"
+          }
+        }
+      }
+    },
+    "/nx-cloud/executions/workspace-status": {
+      "get": {
+        "summary": "Returns whether distributed builds are enabled for the given workspace.",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": ["enabled"],
+                  "properties": {
+                    "enabled": {
+                      "type": "boolean"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/schemas/401"
+          }
+        },
+        "security": [
+          {
+            "auth": []
+          }
+        ]
+      }
+    },
+    "/nx-cloud/executions/create-run-group": {
+      "post": {
+        "summary": "Creates a run group for a workspace.",
+        "security": [
+          {
+            "auth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "branch": {
+                    "oneOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "runGroup": {
+                    "oneOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "ciExecutionId": {
+                    "oneOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "ciExecutionEnv": {
+                    "oneOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "enabled": {
+                      "type": "boolean"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/schemas/400"
+          },
+          "401": {
+            "$ref": "#/components/schemas/401"
+          }
+        }
+      }
+    },
+    "/nx-cloud/executions/start": {
+      "post": {
+        "summary": "Records the start of an execution.",
+        "security": [
+          {
+            "auth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["command", "tasks", "maxParallel"],
+                "properties": {
+                  "branch": {
+                    "oneOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "runGroup": {
+                    "oneOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "ciExecutionId": {
+                    "oneOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "ciExecutionEnv": {
+                    "oneOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "command": {
+                    "type": "string"
+                  },
+                  "maxParallel": {
+                    "type": "integer"
+                  },
+                  "tasks": {
+                    "type": "array",
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/TaskToExecute"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "enabled": {
+                      "type": "boolean"
+                    },
+                    "id": {
+                      "oneOf": [
+                        {
+                          "type": "string"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "error": {
+                      "oneOf": [
+                        {
+                          "type": "string"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/schemas/400"
+          },
+          "401": {
+            "$ref": "#/components/schemas/401"
+          }
+        }
+      }
+    },
+    "/nx-cloud/executions/tasks": {
+      "post": {
+        "summary": "Records the completion of a task",
+        "security": [
+          {
+            "auth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [],
+                "properties": {
+                  "agentName": {
+                    "oneOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "runGroup": {
+                    "oneOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "ciExecutionId": {
+                    "oneOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "ciExecutionEnv": {
+                    "oneOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "executionId": {
+                    "oneOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "statusCode": {
+                    "oneOf": [
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "completedTasks": {
+                    "oneOf": [
+                      {
+                        "type": "null"
+                      },
+                      {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "required": ["taskId", "hash"],
+                          "properties": {
+                            "taskId": {
+                              "type": "string"
+                            },
+                            "hash": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  "completedTaskIds": {
+                    "oneOf": [
+                      {
+                        "type": "null"
+                      },
+                      {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "completed": {
+                      "type": "boolean"
+                    },
+                    "executionId": {
+                      "oneOf": [
+                        {
+                          "type": "string"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "tasks": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/TaskToExecute"
+                      }
+                    },
+                    "maxParallel": {
+                      "type": "integer"
+                    },
+                    "criticalErrorMessage": {
+                      "oneOf": [
+                        {
+                          "type": "string"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/schemas/400"
+          },
+          "401": {
+            "$ref": "#/components/schemas/401"
+          }
+        }
+      }
+    },
+    "/nx-cloud/executions/status": {
+      "post": {
+        "summary": "Retrieves the status of a given execution",
+        "security": [
+          {
+            "auth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["id"],
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "executionStatus": {
+                      "type": "string"
+                    },
+                    "commandStatus": {
+                      "type": "number"
+                    },
+                    "completedTasks": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "taskId": {
+                            "type": "string"
+                          },
+                          "hash": {
+                            "type": "string"
+                          },
+                          "url": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    },
+                    "runUrl": {
+                      "oneOf": [
+                        {
+                          "type": "string"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "criticalErrorMessage": {
+                      "oneOf": [
+                        {
+                          "type": "string"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/schemas/400"
+          },
+          "401": {
+            "$ref": "#/components/schemas/401"
+          }
+        }
+      }
+    },
+    "/nx-cloud/executions/complete-run-group": {
+      "post": {
+        "summary": "Completes the given execution run group.",
+        "security": [
+          {
+            "auth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "runGroup": {
+                    "oneOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "ciExecutionId": {
+                    "oneOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "ciExecutionEnv": {
+                    "oneOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "criticalErrorMessage": {
+                    "oneOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "agentName": {
+                    "oneOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "SUCCESS": {
+                    "summary": "SUCCESS"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/schemas/400"
+          },
+          "401": {
+            "$ref": "#/components/schemas/401"
+          }
+        }
+      }
+    },
+    "/nx-ci/environment-variables": {
+      "get": {
+        "summary": "Retrieves the environment variables for the given execution environment.",
+        "security": [
+          {
+            "auth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "environmentVariables": {
+                      "type": "object",
+                      "additionalProperties": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/schemas/400"
+          },
+          "401": {
+            "$ref": "#/components/schemas/401"
+          }
+        }
+      },
+      "post": {
+        "summary": "Creates a new environment variable",
+        "security": [
+          {
+            "auth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["_id", "name", "installationId", "workspaceId"],
+                "properties": {
+                  "_id": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "workspaceId": {
+                    "type": "string"
+                  },
+                  "installationId": {
+                    "type": "string"
+                  },
+                  "public": {
+                    "type": "object",
+                    "additionalProperties": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "environmentVariables": {
+                      "type": "object",
+                      "additionalProperties": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/schemas/400"
+          },
+          "401": {
+            "$ref": "#/components/schemas/401"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "400": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string"
+          }
+        }
+      },
+      "401": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string"
+          }
+        }
+      },
+      "Task": {
+        "type": "object",
+        "required": [
+          "taskId",
+          "hash",
+          "projectName",
+          "target",
+          "params",
+          "startTime",
+          "endTime",
+          "cacheStatus",
+          "status"
+        ],
+        "properties": {
+          "taskId": {
+            "type": "string"
+          },
+          "hash": {
+            "type": "string"
+          },
+          "projectName": {
+            "type": "string"
+          },
+          "target": {
+            "type": "string"
+          },
+          "startTime": {
+            "type": "string"
+          },
+          "endTime": {
+            "type": "string"
+          },
+          "cacheStatus": {
+            "type": "string"
+          },
+          "status": {
+            "type": "integer"
+          },
+          "uploadedToStorage": {
+            "type": "boolean"
+          },
+          "params": {
+            "type": "string"
+          },
+          "terminalOutput": {
+            "type": "string"
+          },
+          "hashDetails": {
+            "type": "object",
+            "additionalProperties": true
+          }
+        }
+      },
+      "TaskToExecute": {
+        "type": "object",
+        "required": ["taskId", "projectName", "target", "params"],
+        "properties": {
+          "taskId": {
+            "type": "string"
+          },
+          "projectName": {
+            "type": "string"
+          },
+          "target": {
+            "type": "string"
+          },
+          "params": {
+            "type": "string"
+          },
+          "configuration": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        }
+      },
+      "RunData": {
+        "type": "object",
+        "required": ["command", "startTime", "endTime"],
+        "properties": {
+          "command": {
+            "type": "string"
+          },
+          "startTime": {
+            "type": "string"
+          },
+          "endTime": {
+            "type": "string"
+          },
+          "scan": {
+            "type": "boolean"
+          },
+          "inner": {
+            "type": "boolean"
+          },
+          "distributedExecutionId": {
+            "type": "string"
+          },
+          "branch": {
+            "type": "string"
+          },
+          "runGroup": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        }
+      },
+      "MachineInfo": {
+        "type": "object",
+        "required": ["machineId", "platform", "version", "cpuCores"],
+        "properties": {
+          "machineId": {
+            "type": "string"
+          },
+          "platform": {
+            "type": "string"
+          },
+          "version": {
+            "type": "string"
+          },
+          "cpuCores": {
+            "type": "integer"
+          }
+        }
+      },
+      "PerformanceEntry": {
+        "type": "object",
+        "required": ["durationMs", "success", "statusCode", "entryType"],
+        "properties": {
+          "durationMs": {
+            "type": "number"
+          },
+          "success": {
+            "type": "boolean"
+          },
+          "statusCode": {
+            "type": "number"
+          },
+          "entryType": {
+            "type": "string"
+          },
+          "payloadSize": {
+            "type": "number"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "auth": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "authorization"
+      }
+    }
+  }
+}

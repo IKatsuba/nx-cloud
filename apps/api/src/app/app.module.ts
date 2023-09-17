@@ -46,9 +46,9 @@ import { PrometheusStatsModule } from '@nx-turbo/api-stats';
     MikroOrmModule.forRootAsync({
       useFactory: (configService: ConfigService<Environment>) =>
         defineConfig({
-          host: configService.get('DB_HOST', 'localhost'),
-          port: parseInt(configService.get('DB_PORT', '5432'), 10),
-          dbName: configService.get('DB_NAME', 'postgres'),
+          host: configService.get('DB_HOST'),
+          port: parseInt(configService.get('DB_PORT'), 10),
+          dbName: configService.get('DB_NAME'),
           password: configService.get('DB_PASSWORD', null),
           user: configService.get('DB_USER', null),
           metadataProvider: ReflectMetadataProvider,
