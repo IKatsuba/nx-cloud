@@ -20,7 +20,27 @@ jobs:
         npx nx affected --target=lint --parallel=3
         npx nx affected --target=test --parallel=3 --ci --code-coverage
         npx nx affected --target=build --parallel=3
-
+  e2e:
+    name: Nx Cloud - E2E Job
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - run: |
+          npm ci
+          npx nx build api -c=production
+      - name: Docker Compose
+        run: |
+          docker-compose -f compose.test.yml up -d
+          npx -y wait-on http://localhost:3000/ping
+      - name: Run E2E tests
+        run: |
+          npx nx e2e api-e2e
+      - name: Docker Compose down
+        run: |
+          docker-compose -f compose.test.yml down
   agents:
     name: Nx Cloud - Agents
     uses: nrwl/ci/.github/workflows/nx-cloud-agents.yml@v0.11.3
