@@ -33,7 +33,7 @@ jobs:
           npx nx build api -c=production
       - name: Docker Compose
         run: |
-          docker-compose -f compose.test.yml up -d
+          docker-compose -f compose.test.yaml up -d
       - name: Wait for services
         run: |
           npx wait-on http://localhost:3000
@@ -42,7 +42,7 @@ jobs:
           npx nx e2e api-e2e
       - name: Docker Compose down
         run: |
-          docker-compose -f compose.test.yml down
+          docker-compose -f compose.test.yaml down
   agents:
     name: Nx Cloud - Agents
     uses: nrwl/ci/.github/workflows/nx-cloud-agents.yml@v0.11.3
