@@ -4,7 +4,7 @@ services:
       context: .
       dockerfile: apps/api/Dockerfile
     ports:
-      - 8080:3000
+      - 3000:3000
     environment:
       - PORT=3000
       - DB_HOST=postgres
