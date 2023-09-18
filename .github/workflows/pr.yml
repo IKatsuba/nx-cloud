@@ -34,9 +34,6 @@ jobs:
       - name: Docker Compose
         run: |
           docker-compose -f compose.test.yaml up -d
-      - name: Wait for services
-        run: |
-          npx wait-on http://localhost:3000
       - name: Run E2E tests
         run: |
           npx nx e2e api-e2e
