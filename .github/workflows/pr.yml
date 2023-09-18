@@ -22,7 +22,7 @@ jobs:
         npx nx affected --target=build --parallel=3
   e2e:
     name: Nx Cloud - E2E Job
-    uses: nrwl/ci/.github/workflows/nx-cloud-e2e.yml@v0.11.3
+    uses: nrwl/ci/.github/workflows/nx-cloud-main.yml@v0.11.3
     with:
       main-branch-name: main
       number-of-agents: 3
