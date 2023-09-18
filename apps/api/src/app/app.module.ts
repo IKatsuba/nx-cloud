@@ -53,6 +53,10 @@ import { PrometheusStatsModule } from '@nx-turbo/api-stats';
           user: configService.get('DB_USER', null),
           metadataProvider: ReflectMetadataProvider,
           entities: [WorkspaceEntity, TaskEntity, ExecutionEntity],
+          migrations: {
+            path: './migrations',
+            disableForeignKeys: false,
+          },
         }),
       inject: [ConfigService],
     }),
