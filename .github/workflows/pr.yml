@@ -20,7 +20,19 @@ jobs:
         npx nx affected --target=lint --parallel=3
         npx nx affected --target=test --parallel=3 --ci --code-coverage
         npx nx affected --target=build --parallel=3
-
+  e2e:
+    name: Nx Cloud - E2E Job
+    uses: nrwl/ci/.github/workflows/nx-cloud-e2e.yml@v0.11.3
+    with:
+      main-branch-name: main
+      number-of-agents: 3
+      init-commands: |
+        npx nx-cloud start-ci-run --stop-agents-after="build" --agent-count=3
+        docker-compose -f compose.test.yaml up -d
+      parallel-commands: |
+        npx nx affected --target=e2e --parallel=3 --ci
+      final-commands: |
+        docker-compose -f compose.test.yaml down
   agents:
     name: Nx Cloud - Agents
     uses: nrwl/ci/.github/workflows/nx-cloud-agents.yml@v0.11.3

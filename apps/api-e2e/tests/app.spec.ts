@@ -25,7 +25,7 @@ describe('api e2e', () => {
     await runNxCommandAsync(`generate @nrwl/nx-cloud:init`, {
       env: {
         ...process.env,
-        NX_CLOUD_API: 'http://localhost:3333/',
+        NX_CLOUD_API: 'http://localhost:3000/',
       },
       silenceError: false,
     });
@@ -38,7 +38,7 @@ describe('api e2e', () => {
         options: {
           cacheableOperations: ['build', 'lint', 'test', 'e2e'],
           accessToken: expect.any(String),
-          url: 'http://localhost:3333/',
+          url: 'http://localhost:3000/',
         },
       },
     });
