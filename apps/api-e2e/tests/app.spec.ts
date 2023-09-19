@@ -1,7 +1,6 @@
 import { readJson, runNxCommandAsync, tmpProjPath } from '@nx/plugin/testing';
 import { addPackageToPackageJson, createTestProject } from './utils';
 import { rmSync } from 'fs';
-import { getPackageManagerCommand } from 'nx/src/utils/package-manager';
 import { execSync } from 'child_process';
 import { uniq } from '@nx/plugin/src/utils/testing-utils/nx-project';
 
@@ -13,10 +12,10 @@ describe('api e2e', () => {
   }, 120000);
 
   afterAll(() => {
-    // rmSync(tmpProjPath(), {
-    //   recursive: true,
-    //   force: true,
-    // });
+    rmSync(tmpProjPath(), {
+      recursive: true,
+      force: true,
+    });
   });
 
   it('should configure Nx Cloud', async () => {
