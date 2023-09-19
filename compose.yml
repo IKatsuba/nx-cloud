@@ -1,23 +1,4 @@
 services:
-  #  api:
-  #    build:
-  #      context: .
-  #      dockerfile: apps/api/Dockerfile
-  #    ports:
-  #      - 8080:3000
-  #    environment:
-  #      - PORT=3000
-  #      - DB_HOST=postgres
-  #      - DB_PORT=5432
-  #      - DB_USER=postgres
-  #      - DB_PASSWORD=postgres
-  #      - DB_NAME=postgres
-  #      - JWT_SECRET=secret
-  #      - AWS_S3_ENDPOINT_URL=http://s3:9000
-  #      - AWS_ACCESS_KEY_ID=minio
-  #      - AWS_SECRET_ACCESS_KEY=minio123
-  #      - AWS_S3_BUCKET_NAME=nx-cloud
-  #      - AWS_REGION=us-east-1
   postgres:
     image: postgres:12.1
     environment:
