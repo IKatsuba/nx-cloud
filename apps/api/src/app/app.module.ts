@@ -31,16 +31,21 @@ import { PrometheusStatsModule } from '@nx-turbo/api-stats';
       envFilePath: '.env',
       isGlobal: true,
     }),
-    LoggerModule.forRoot({
-      pinoHttp: {
-        level: environment.production ? 'info' : 'debug',
-        transport: {
-          target: 'pino-pretty',
-          options: {
-            colorize: true,
-          },
+    LoggerModule.forRootAsync({
+      useFactory: (configService: ConfigService<Environment>) => ({
+        pinoHttp: {
+          level: configService.get('LOG_LEVEL', 'info'),
+          transport: environment.production
+            ? undefined
+            : {
+                target: 'pino-pretty',
+                options: {
+                  colorize: true,
+                },
+              },
         },
-      },
+      }),
+      inject: [ConfigService],
     }),
     ApiAuthModule,
     MikroOrmModule.forRootAsync({
