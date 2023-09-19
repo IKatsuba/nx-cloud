@@ -3,8 +3,6 @@ services:
     build:
       context: .
       dockerfile: apps/api/Dockerfile
-    ports:
-      - 3000:3000
     environment:
       - PORT=3000
       - DB_HOST=127.0.0.1
