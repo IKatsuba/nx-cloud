@@ -50,6 +50,8 @@ export class RunsController {
       ).pipe(reduce((acc, curr) => ({ ...acc, ...curr }), {}))
     );
 
+    console.log('urls', urls);
+
     return { urls };
   }
 
