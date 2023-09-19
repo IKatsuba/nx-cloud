@@ -11,4 +11,7 @@ export interface Environment {
   AWS_ACCESS_KEY_ID: string;
   AWS_SECRET_ACCESS_KEY: string;
   AWS_S3_BUCKET_NAME: string;
+
+  AWS_ROLE_ARN: string;
+  AWS_WEB_IDENTITY_TOKEN_FILE: string;
 }
