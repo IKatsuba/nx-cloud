@@ -9,6 +9,7 @@ import {
   TaskService,
   WorkspaceService,
 } from '@nx-turbo/api-db-entities';
+import { Logger, getLoggerToken } from 'nestjs-pino';
 
 describe('RunsController', () => {
   let controller: RunsController;
@@ -37,6 +38,10 @@ describe('RunsController', () => {
         {
           provide: TaskService,
           useValue: createMock<TaskService>(),
+        },
+        {
+          provide: getLoggerToken('RunsController'),
+          useValue: createMock<Logger>(),
         },
       ],
     }).compile();
