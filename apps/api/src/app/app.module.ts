@@ -81,6 +81,7 @@ export class AppModule implements NestModule {
       .apply(
         bodyParser.raw({
           type: ['application/octet-stream'],
+          limit: '100mb',
         })
       )
       .forRoutes('runs/end');
