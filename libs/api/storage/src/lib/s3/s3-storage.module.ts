@@ -3,6 +3,7 @@ import { S3_CREDENTIALS, s3CredentialsFactory, S3Service } from './s3.service';
 import { Storage } from '../storage';
 import { HttpModule } from '@nestjs/axios';
 import { ConfigService } from '@nestjs/config';
+import { Logger } from 'nestjs-pino';
 
 @Module({
   imports: [HttpModule],
@@ -14,7 +15,7 @@ import { ConfigService } from '@nestjs/config';
     {
       provide: S3_CREDENTIALS,
       useFactory: s3CredentialsFactory,
-      inject: [ConfigService],
+      inject: [ConfigService, Logger],
     },
   ],
   exports: [Storage],
