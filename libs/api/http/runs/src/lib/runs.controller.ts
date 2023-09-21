@@ -1,5 +1,4 @@
 import { Body, Controller, Optional, Post, UseGuards } from '@nestjs/common';
-import { lastValueFrom, merge, reduce } from 'rxjs';
 import {
   JwtAuthGuard,
   TokenPermission,
@@ -15,10 +14,15 @@ import {
 import { RunGroup, Task } from '@nx-turbo/api-models';
 import { Stats } from '@nx-turbo/api-stats';
 import { Storage } from '@nx-turbo/api-storage';
+import { InjectPinoLogger, Logger } from 'nestjs-pino';
+import { lastValueFrom, merge, reduce } from 'rxjs';
 
 @UseGuards(JwtAuthGuard)
 @Controller('runs')
 export class RunsController {
+  @InjectPinoLogger('RunsController')
+  private logger: Logger;
+
   constructor(
     private storage: Storage,
     private runGroupService: RunGroupService,
@@ -35,6 +39,8 @@ export class RunsController {
     @Body('branch') branch: string,
     @TokenPermissions() permissions: TokenPermission[]
   ) {
+    this.logger.debug({ hashes, runGroup, branch, permissions }, 'Start run');
+
     const urls = await lastValueFrom(
       merge(
         ...hashes.map(async (hash) => ({
@@ -49,8 +55,6 @@ export class RunsController {
         }))
       ).pipe(reduce((acc, curr) => ({ ...acc, ...curr }), {}))
     );
-
-    console.log('urls', urls);
 
     return { urls };
   }
