@@ -27,4 +27,6 @@ export interface Environment {
   // LOG starts here
   LOG_LEVEL: LevelWithSilent;
   // LOG ends here
+
+  ENV: 'development' | string;
 }

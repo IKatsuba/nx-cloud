@@ -35,14 +35,15 @@ import { PrometheusStatsModule } from '@nx-turbo/api-stats';
       useFactory: (configService: ConfigService<Environment>) => ({
         pinoHttp: {
           level: configService.get('LOG_LEVEL', 'info'),
-          transport: environment.production
-            ? undefined
-            : {
-                target: 'pino-pretty',
-                options: {
-                  colorize: true,
+          transport:
+            environment.production || configService.get('ENV') !== 'development'
+              ? undefined
+              : {
+                  target: 'pino-pretty',
+                  options: {
+                    colorize: true,
+                  },
                 },
-              },
         },
       }),
       inject: [ConfigService],
