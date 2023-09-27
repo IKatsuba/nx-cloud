@@ -5,10 +5,19 @@ import {
   makeHistogramProvider,
   PrometheusModule,
 } from '@willsoto/nestjs-prometheus';
+import { ConfigService } from '@nestjs/config';
+import { Environment } from '@nx-turbo/api-models';
 
 @Global()
 @Module({
-  imports: [PrometheusModule.register()],
+  imports: [
+    PrometheusModule.registerAsync({
+      useFactory: (config: ConfigService<Environment>) => ({
+        path: config.get('METRICS_PATH', '/metrics'),
+      }),
+      inject: [ConfigService],
+    }),
+  ],
   providers: [
     {
       provide: Stats,

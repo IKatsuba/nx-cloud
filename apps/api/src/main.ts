@@ -1,8 +1,3 @@
-/**
- * This is not a production server yet!
- * This is only a minimal backend to get started.
- */
-
 import { Logger } from 'nestjs-pino';
 import { NestFactory } from '@nestjs/core';
 
@@ -16,12 +11,15 @@ async function bootstrap() {
     bufferLogs: true,
   });
 
+  const config = app.get(ConfigService<Environment>);
   const logger = app.get(Logger);
 
   app.useLogger(logger);
 
   const globalPrefix = 'nx-cloud';
-  app.setGlobalPrefix(globalPrefix, { exclude: ['ping'] });
+  app.setGlobalPrefix(globalPrefix, {
+    exclude: ['ping', config.get('METRICS_PATH', '/metrics')],
+  });
 
   const configService = app.get<ConfigService<Environment>>(ConfigService);
 

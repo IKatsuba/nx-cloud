@@ -29,4 +29,6 @@ export interface Environment {
   // LOG ends here
 
   ENV: 'development' | string;
+
+  METRICS_PATH: string;
 }
