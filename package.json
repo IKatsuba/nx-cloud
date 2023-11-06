@@ -22,7 +22,7 @@
     "@nx/plugin": "16.8.1",
     "@nx/webpack": "16.8.1",
     "@nx/workspace": "16.8.1",
-    "@semantic-release/commit-analyzer": "^10.0.1",
+    "@semantic-release/commit-analyzer": "^11.1.0",
     "@semantic-release/github": "^9.0.3",
     "@semantic-release/npm": "^10.0.4",
     "@semantic-release/release-notes-generator": "^11.0.3",
