@@ -8,7 +8,7 @@ describe('api e2e', () => {
   beforeAll(async () => {
     createTestProject();
 
-    addPackageToPackageJson('nx-cloud');
+    addPackageToPackageJson('nx-cloud@16.4.0');
   }, 120000);
 
   afterAll(() => {
