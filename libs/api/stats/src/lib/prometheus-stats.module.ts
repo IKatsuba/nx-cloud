@@ -14,6 +14,12 @@ import { Environment } from '@nx-turbo/api-models';
     PrometheusModule.registerAsync({
       useFactory: (config: ConfigService<Environment>) => ({
         path: config.get('METRICS_PATH', '/metrics'),
+        defaultMetrics: {
+          enabled: config.get('DEFAULT_METRICS_ENABLED', true),
+          config: {
+            prefix: config.get('DEFAULT_METRICS_PREFIX', 'nx_cloud_'),
+          },
+        },
       }),
       inject: [ConfigService],
     }),

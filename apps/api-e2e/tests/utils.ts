@@ -1,5 +1,5 @@
 import { tmpProjPath } from '@nx/plugin/testing';
-import { dirname, join, basename } from 'path';
+import { dirname, basename } from 'path';
 import * as ch from 'child_process';
 import { execSync } from 'child_process';
 import { getPackageManagerCommand } from 'nx/src/utils/package-manager';
@@ -19,7 +19,7 @@ export function createTestProject() {
   });
 
   execSync(
-    `npx --yes create-nx-workspace@latest ${projectName} --preset apps --no-nxCloud --no-interactive`,
+    `npx --yes create-nx-workspace@16 ${projectName} --preset apps --no-nxCloud --no-interactive`,
     {
       cwd: dirname(projectDirectory),
       stdio: 'inherit',

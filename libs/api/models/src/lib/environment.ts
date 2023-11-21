@@ -30,5 +30,9 @@ export interface Environment {
 
   ENV: 'development' | string;
 
+  // Prometheus starts here
   METRICS_PATH: string;
+  DEFAULT_METRICS_ENABLED: boolean;
+  DEFAULT_METRICS_PREFIX: string;
+  // Prometheus ends here
 }
