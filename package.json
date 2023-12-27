@@ -47,7 +47,7 @@
     "semantic-release": "^21.0.5",
     "ts-jest": "29.1.0",
     "typescript": "5.1.6",
-    "verdaccio": "^5.0.4"
+    "verdaccio": "^5.29.0"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "3.414.0",
