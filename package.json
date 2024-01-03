@@ -10,7 +10,7 @@
   "devDependencies": {
     "@golevelup/ts-jest": "0.3.5",
     "@nestjs/schematics": "10.0.2",
-    "@nestjs/testing": "10.2.5",
+    "@nestjs/testing": "10.3.0",
     "@nx/devkit": "16.8.1",
     "@nx/esbuild": "16.8.1",
     "@nx/eslint-plugin": "16.8.1",
