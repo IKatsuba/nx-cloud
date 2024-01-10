@@ -24,7 +24,7 @@
     "@nx/workspace": "16.10.0",
     "@semantic-release/commit-analyzer": "^10.0.1",
     "@semantic-release/github": "^9.2.6",
-    "@semantic-release/npm": "^10.0.4",
+    "@semantic-release/npm": "^11.0.2",
     "@semantic-release/release-notes-generator": "^11.0.3",
     "@swc-node/register": "1.6.8",
     "@swc/cli": "0.1.62",
