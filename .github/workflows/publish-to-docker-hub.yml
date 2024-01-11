@@ -12,7 +12,22 @@ on:
       - 'main'
 
 jobs:
+  check_secrets:
+    runs-on: ubuntu-latest
+    outputs:
+      secrets_available: ${{ steps.check.outputs.secrets_available }}
+    steps:
+      - id: check
+        run: |
+          if [[ -n "${{ secrets.DOCKERHUB_USERNAME }}" && -n "${{ secrets.DOCKERHUB_TOKEN }}" ]]; then
+            echo "::set-output name=secrets_available::true"
+          else
+            echo "::set-output name=secrets_available::false"
+          fi
+        shell: bash
   build:
+    needs: check_secrets
+    if: ${{ needs.check_secrets.outputs.secrets_available == 'true' }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
