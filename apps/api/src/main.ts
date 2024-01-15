@@ -24,6 +24,11 @@ async function bootstrap() {
   const configService = app.get<ConfigService<Environment>>(ConfigService);
 
   const port = configService.get('PORT', 3000);
+
+  if (configService.get('ENV') !== 'development') {
+    app.enableShutdownHooks();
+  }
+
   await app.listen(port);
   logger.log(
     `🚀 Application is running on: http://localhost:${port}/${globalPrefix}`
