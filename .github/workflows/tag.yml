@@ -15,10 +15,10 @@ jobs:
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0
-      - name: Use Node.js 18.x
-        uses: actions/setup-node@v2
+      - name: Use Node.js 20
+        uses: actions/setup-node@v3
         with:
-          node-version: 18.x
+          node-version: 20
       - run: npx -y semantic-release
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
