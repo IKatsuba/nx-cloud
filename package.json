@@ -44,7 +44,7 @@
     "nx": "16.10.0",
     "nx-cloud": "16.5.2",
     "prettier": "^2.6.2",
-    "semantic-release": "^22.0.12",
+    "semantic-release": "^23.0.0",
     "ts-jest": "29.1.0",
     "typescript": "5.1.6",
     "verdaccio": "^5.0.4"
