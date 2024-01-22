@@ -69,7 +69,7 @@
     "@willsoto/nestjs-prometheus": "5.5.1",
     "axios": "^1.6.5",
     "express": "~4.18.1",
-    "firebase-admin": "^11.3.0",
+    "firebase-admin": "^12.0.0",
     "nestjs-pino": "^3.4.0",
     "passport": "^0.6.0",
     "passport-jwt": "^4.0.0",
