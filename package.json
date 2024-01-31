@@ -54,7 +54,7 @@
     "@aws-sdk/credential-providers": "3.414.0",
     "@aws-sdk/s3-request-presigner": "3.495.0",
     "@mikro-orm/core": "5.6.15",
-    "@mikro-orm/migrations": "5.6.15",
+    "@mikro-orm/migrations": "6.0.7",
     "@mikro-orm/nestjs": "5.2.1",
     "@mikro-orm/postgresql": "5.6.15",
     "@nestjs/axios": "3.0.0",
