@@ -11,7 +11,7 @@
     "@golevelup/ts-jest": "0.4.0",
     "@nestjs/schematics": "10.1.0",
     "@nestjs/testing": "10.2.5",
-    "@nx/devkit": "16.10.0",
+    "@nx/devkit": "18.0.4",
     "@nx/esbuild": "16.10.0",
     "@nx/eslint-plugin": "16.10.0",
     "@nx/jest": "16.10.0",
