@@ -19,7 +19,7 @@
     "@nx/linter": "16.10.0",
     "@nx/nest": "16.10.0",
     "@nx/node": "16.10.0",
-    "@nx/plugin": "16.10.0",
+    "@nx/plugin": "18.0.4",
     "@nx/webpack": "16.10.0",
     "@nx/workspace": "16.10.0",
     "@semantic-release/commit-analyzer": "^10.0.1",
