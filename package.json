@@ -42,7 +42,7 @@
     "jest-environment-node": "^29.4.1",
     "jsonc-eslint-parser": "^2.1.0",
     "nx": "16.10.0",
-    "nx-cloud": "16.5.2",
+    "nx-cloud": "18.0.0",
     "prettier": "^2.6.2",
     "semantic-release": "^23.0.0",
     "ts-jest": "29.1.2",
