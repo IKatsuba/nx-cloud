@@ -20,7 +20,7 @@
     "@nx/nest": "16.10.0",
     "@nx/node": "16.10.0",
     "@nx/plugin": "16.10.0",
-    "@nx/webpack": "16.10.0",
+    "@nx/webpack": "18.0.5",
     "@nx/workspace": "16.10.0",
     "@semantic-release/commit-analyzer": "^10.0.1",
     "@semantic-release/github": "^9.2.6",
