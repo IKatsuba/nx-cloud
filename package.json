@@ -21,7 +21,7 @@
     "@nx/node": "16.10.0",
     "@nx/plugin": "16.10.0",
     "@nx/webpack": "16.10.0",
-    "@nx/workspace": "16.10.0",
+    "@nx/workspace": "18.0.8",
     "@semantic-release/commit-analyzer": "^10.0.1",
     "@semantic-release/github": "^9.2.6",
     "@semantic-release/npm": "^10.0.4",
