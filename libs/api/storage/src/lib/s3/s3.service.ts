@@ -70,6 +70,7 @@ export class S3Service extends Storage {
     endpoint: this.configService.get('AWS_S3_ENDPOINT_URL'),
     region: this.configService.get('AWS_REGION'),
     credentials: this.credentials,
+    forcePathStyle: true,
   });
 
   constructor(
