@@ -10,6 +10,8 @@ This project is a work in progress. We are currently working on the first versio
 
 API server based on public [Nx Cloud Server API Reference](https://nx.dev/nx-cloud/reference/server-api).
 
+[![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/template/ORHjp6?referralCode=73cYCO)
+
 ## Local Development
 
 ### Prerequisites
