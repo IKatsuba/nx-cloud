@@ -18,7 +18,6 @@ import { Logger } from 'nestjs-pino';
   const orm = app.get(MikroORM);
 
   const migrator = orm.getMigrator();
-  await migrator.createMigration();
   await migrator.up();
 
   logger.log('Migrations finished.');
