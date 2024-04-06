@@ -25,26 +25,10 @@ jobs:
             echo "::set-output name=secrets_available::false"
           fi
         shell: bash
-  build:
-    needs: check_secrets
-    if: ${{ needs.check_secrets.outputs.secrets_available == 'true' }}
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-      - name: npm install and build
-        run: |
-          npm ci
-          npx nx build api -c=production
-      - name: Archive production artifacts
-        uses: actions/upload-artifact@v3
-        with:
-          name: build
-          path: dist
-          if-no-files-found: error
   publish:
     runs-on: ubuntu-latest
-    needs: build
+    needs: check_secrets
+    if: ${{ needs.check_secrets.outputs.secrets_available == 'true' }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -69,11 +53,6 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - name: Download production artifacts
-        uses: actions/download-artifact@v3
-        with:
-          name: build
-          path: dist
       - name: Build and push
         uses: docker/build-push-action@v4
         with:
