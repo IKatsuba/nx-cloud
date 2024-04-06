@@ -44,5 +44,6 @@
     "sharedGlobals": []
   },
   "defaultProject": "api",
-  "nxCloudAccessToken": "YWJmODVlMGYtMjA0YS00MTk1LWJkZjEtZDQxYWEzMjcwYmRlfHJlYWQtd3JpdGU="
+  "nxCloudAccessToken": "YWJmODVlMGYtMjA0YS00MTk1LWJkZjEtZDQxYWEzMjcwYmRlfHJlYWQtd3JpdGU=",
+  "useInferencePlugins": false
 }
