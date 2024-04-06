@@ -30,7 +30,6 @@ jobs:
           node-version: 20
       - run: |
           npm ci
-          npx nx build api -c=production
       - name: Docker Compose
         run: |
           docker-compose -f compose.test.yml up -d
