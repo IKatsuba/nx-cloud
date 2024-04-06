@@ -1,12 +1,8 @@
 {
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
-  "npmScope": "nx-cloud",
   "tasksRunnerOptions": {
     "default": {
-      "runner": "nx-cloud",
       "options": {
-        "cacheableOperations": ["build", "lint", "test", "e2e"],
-        "accessToken": "YWJmODVlMGYtMjA0YS00MTk1LWJkZjEtZDQxYWEzMjcwYmRlfHJlYWQtd3JpdGU=",
         "canTrackAnalytics": true
       }
     }
@@ -14,13 +10,25 @@
   "targetDefaults": {
     "build": {
       "dependsOn": ["^build"],
-      "inputs": ["production", "^production"]
+      "inputs": ["production", "^production"],
+      "cache": true
     },
-    "test": {
-      "inputs": ["default", "^production", "{workspaceRoot}/jest.preset.js"]
+    "@nx/jest:jest": {
+      "cache": true,
+      "inputs": ["default", "^production", "{workspaceRoot}/jest.preset.js"],
+      "options": {
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
     },
-    "lint": {
-      "inputs": ["default", "{workspaceRoot}/.eslintrc.json"]
+    "@nx/eslint:lint": {
+      "inputs": ["default", "{workspaceRoot}/.eslintrc.json"],
+      "cache": true
     }
   },
   "namedInputs": {
@@ -35,5 +43,6 @@
     ],
     "sharedGlobals": []
   },
-  "defaultProject": "api"
+  "defaultProject": "api",
+  "nxCloudAccessToken": "YWJmODVlMGYtMjA0YS00MTk1LWJkZjEtZDQxYWEzMjcwYmRlfHJlYWQtd3JpdGU="
 }

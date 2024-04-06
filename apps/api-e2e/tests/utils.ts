@@ -19,7 +19,7 @@ export function createTestProject() {
   });
 
   execSync(
-    `npx --yes create-nx-workspace@16 ${projectName} --preset apps --no-nxCloud --no-interactive`,
+    `npx --yes create-nx-workspace@17 ${projectName} --preset apps --nxCloud=skip --no-interactive`,
     {
       cwd: dirname(projectDirectory),
       stdio: 'inherit',

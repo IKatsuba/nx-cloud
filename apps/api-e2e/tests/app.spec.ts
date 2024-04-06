@@ -33,7 +33,6 @@ describe('api e2e', () => {
       default: {
         runner: 'nx-cloud',
         options: {
-          cacheableOperations: ['build', 'lint', 'test', 'e2e'],
           accessToken: expect.any(String),
           url: 'http://localhost:3000/',
         },
@@ -51,11 +50,18 @@ describe('api e2e', () => {
 
     const libName = uniq('lib');
 
-    await runNxCommandAsync(`g @nx/js:library ${libName} --buildable`);
+    await runNxCommandAsync(
+      `g @nx/js:library ${libName}  --bundler=tsc --no-interactive`
+    );
 
-    await runNxCommandAsync(`build ${libName}`);
+    await runNxCommandAsync(`build ${libName}`, {
+      env: {
+        ...process.env,
+        NX_DAEMON: 'false',
+      },
+    });
 
-    rmSync(tmpProjPath('node_modules/.cache'), {
+    rmSync(tmpProjPath('.nx'), {
       recursive: true,
       force: true,
     });
