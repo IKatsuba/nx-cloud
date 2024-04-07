@@ -41,3 +41,7 @@ Thumbs.db
 .env
 
 .nx/cache
+
+# Next.js
+.next
+out

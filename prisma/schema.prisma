@@ -1,0 +1,55 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["multiSchema"]
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model ExecutionEntity {
+  id          String         @id @default(uuid())
+  command     String
+  maxParallel Int            @default(3)
+  statusCode  Int            @default(0)
+  isCompleted Boolean        @default(false)
+  runGroupId  String
+  runGroup    RunGroupEntity @relation(fields: [runGroupId], references: [runGroup])
+  tasks       TaskEntity[]
+}
+
+model RunGroupEntity {
+  runGroup    String            @id @default(uuid())
+  branch      String? // nullable
+  isCompleted Boolean           @default(false)
+  workspaceId String
+  workspace   WorkspaceEntity   @relation(fields: [workspaceId], references: [id])
+  executions  ExecutionEntity[]
+}
+
+model TaskEntity {
+  id            String          @id @default(uuid())
+  taskId        String
+  projectName   String
+  target        String
+  params        String
+  configuration String? // nullable
+  hash          String
+  isCompleted   Boolean         @default(false)
+  startTime     String? // nullable
+  endTime       String? // nullable
+  cacheStatus   String          @default("cache-miss") // 'cache-miss' | 'local-cache-hit' | 'remote-cache-hit'
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+  executionId   String
+  execution     ExecutionEntity @relation(fields: [executionId], references: [id])
+}
+
+model WorkspaceEntity {
+  id                       String           @id @default(uuid())
+  name                     String
+  distributedBuildsEnabled Boolean          @default(true)
+  runGroups                RunGroupEntity[]
+}
