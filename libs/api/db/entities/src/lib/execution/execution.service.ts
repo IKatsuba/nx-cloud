@@ -1,13 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { prisma } from '../prisma';
-import { Execution, RunGroup } from '@prisma/client';
+import { Execution, RunGroup, Task } from '@prisma/client';
 
 @Injectable()
 export class ExecutionService {
   async createExecution(param: {
     runGroup: RunGroup;
     command: string;
-    tasks: any;
+    tasks: Task[];
     maxParallel: number;
     isCompleted?: boolean;
   }) {
@@ -16,7 +16,18 @@ export class ExecutionService {
         runGroup: { connect: { runGroup: param.runGroup.runGroup } },
         command: param.command,
         tasks: {
-          create: param.tasks || [],
+          create: (param.tasks || []).map((task) => ({
+            taskId: task.taskId,
+            projectName: task.projectName,
+            target: task.target,
+            params: task.params,
+            configuration: task.configuration,
+            hash: task.hash,
+            isCompleted: false,
+            startTime: task.startTime,
+            endTime: task.endTime,
+            cacheStatus: task.cacheStatus,
+          })),
         },
         maxParallel: param.maxParallel,
         isCompleted: param.isCompleted ?? false,

@@ -20,8 +20,6 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     workspaceId: string;
     permissions: Array<TokenPermission>;
   }) {
-    console.log(payload);
-
     const workspace = await prisma.workspace.findUnique({
       where: {
         id: payload.workspaceId,

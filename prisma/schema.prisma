@@ -49,8 +49,8 @@ model Task {
   startTime     String?   @map("start_time") @db.VarChar(255)
   endTime       String?   @map("end_time") @db.VarChar(255)
   cacheStatus   String    @default("cache-miss") @map("cache_status") @db.VarChar(255)
-  createdAt     String    @map("created_at") @db.VarChar(255)
-  updatedAt     String    @map("updated_at") @db.VarChar(255)
+  createdAt     DateTime  @default(now()) @map("created_at")
+  updatedAt     DateTime  @updatedAt @map("updated_at")
   executionId   String    @map("execution_id") @db.VarChar(255)
   execution     Execution @relation(fields: [executionId], references: [id], onDelete: NoAction, map: "task_entity_execution_id_foreign")
 
