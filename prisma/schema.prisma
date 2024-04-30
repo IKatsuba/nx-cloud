@@ -8,14 +8,14 @@ datasource db {
 }
 
 model Execution {
-  id             String   @id @default(uuid()) @db.VarChar(255)
-  command        String   @db.VarChar(255)
-  maxParallel    Int      @default(3) @map("max_parallel")
-  statusCode     Int      @default(0) @map("status_code")
-  isCompleted    Boolean  @default(false) @map("is_completed")
-  runGroup       String   @map("run_group_run_group") @db.VarChar(255)
-  runGroupEntity RunGroup @relation(fields: [runGroup], references: [runGroup], onDelete: NoAction, map: "execution_entity_run_group_run_group_foreign")
-  tasks          Task[]
+  id          String   @id @default(uuid()) @db.VarChar(255)
+  command     String   @db.VarChar(255)
+  maxParallel Int      @default(3) @map("max_parallel")
+  statusCode  Int      @default(0) @map("status_code")
+  isCompleted Boolean  @default(false) @map("is_completed")
+  runGroupId  String   @map("run_group_run_group") @db.VarChar(255)
+  runGroup    RunGroup @relation(fields: [runGroupId], references: [runGroup], onDelete: NoAction, map: "execution_entity_run_group_run_group_foreign")
+  tasks       Task[]
 
   @@map("execution_entity")
 }
@@ -58,10 +58,10 @@ model Task {
 }
 
 model Workspace {
-  id                         String     @id @default(uuid()) @db.VarChar(255)
-  name                       String     @db.VarChar(255)
-  distributed_builds_enabled Boolean    @default(true)
-  run_group_entity           RunGroup[]
+  id                       String     @id @default(uuid()) @db.VarChar(255)
+  name                     String     @db.VarChar(255)
+  distributedBuildsEnabled Boolean    @default(true) @map("distributed_builds_enabled")
+  runGroups                RunGroup[]
 
   @@map("workspace_entity")
 }

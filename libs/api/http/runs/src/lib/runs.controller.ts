@@ -11,11 +11,11 @@ import {
   TaskService,
   WorkspaceService,
 } from '@nx-turbo/api-db-entities';
-import { RunGroup, Task } from '@nx-turbo/api-models';
 import { Stats } from '@nx-turbo/api-stats';
 import { Storage } from '@nx-turbo/api-storage';
 import { InjectPinoLogger, Logger } from 'nestjs-pino';
 import { lastValueFrom, merge, reduce } from 'rxjs';
+import { RunGroup, Task } from '@prisma/client';
 
 @UseGuards(JwtAuthGuard)
 @Controller('runs')

@@ -5,7 +5,6 @@ import { createMock, DeepMocked } from '@golevelup/ts-jest';
 import { getRepositoryToken } from '@mikro-orm/nestjs';
 import { EntityRepository } from '@mikro-orm/core';
 import { ConfigService } from '@nestjs/config';
-import { WorkspaceEntity } from '@nx-turbo/api-db-entities';
 
 describe('ApiOrgAndWorkspaceController', () => {
   let controller: ApiOrgAndWorkspaceController;

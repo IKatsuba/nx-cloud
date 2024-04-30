@@ -1,22 +1,19 @@
-import { InjectRepository } from '@mikro-orm/nestjs';
-import { WorkspaceEntity } from './workspace.entity';
-import { EntityRepository } from '@mikro-orm/postgresql';
 import { Injectable } from '@nestjs/common';
+import { prisma } from '../prisma';
 
 @Injectable()
 export class WorkspaceService {
-  constructor(
-    @InjectRepository(WorkspaceEntity)
-    private readonly workspaceRepository: EntityRepository<WorkspaceEntity>
-  ) {}
-
-  async getWorkspace(workspaceId: string): Promise<WorkspaceEntity> {
-    return this.workspaceRepository.findOne(workspaceId);
+  async getWorkspace(workspaceId: string) {
+    return prisma.workspace.findUnique({
+      where: {
+        id: workspaceId,
+      },
+    });
   }
 
-  isEnabled(workspaceId: string): Promise<boolean> {
-    return this.getWorkspace(workspaceId).then(
-      (workspace) => workspace.distributedBuildsEnabled
-    );
+  async isEnabled(workspaceId: string): Promise<boolean> {
+    const workspace = await this.getWorkspace(workspaceId);
+
+    return workspace.distributedBuildsEnabled;
   }
 }

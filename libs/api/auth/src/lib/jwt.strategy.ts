@@ -1,20 +1,14 @@
 import { Injectable } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
-import { InjectRepository } from '@mikro-orm/nestjs';
-import { EntityRepository } from '@mikro-orm/postgresql';
 import { TokenPermission } from './token-permissions.decorator';
 import { ConfigService } from '@nestjs/config';
-import { WorkspaceEntity } from '@nx-turbo/api-db-entities';
 import { Environment } from '@nx-turbo/api-models';
+import { prisma } from '@nx-turbo/api-db-entities';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
-  constructor(
-    @InjectRepository(WorkspaceEntity)
-    private workspaceRepository: EntityRepository<WorkspaceEntity>,
-    configService: ConfigService<Environment>
-  ) {
+  constructor(configService: ConfigService<Environment>) {
     super({
       jwtFromRequest: ExtractJwt.fromHeader('authorization'),
       ignoreExpiration: false,
@@ -26,8 +20,12 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     workspaceId: string;
     permissions: Array<TokenPermission>;
   }) {
-    const workspace = await this.workspaceRepository.findOne({
-      id: payload.workspaceId,
+    console.log(payload);
+
+    const workspace = await prisma.workspace.findUnique({
+      where: {
+        id: payload.workspaceId,
+      },
     });
 
     if (!workspace) {

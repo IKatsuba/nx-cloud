@@ -6,7 +6,7 @@ import {
   TaskService,
   WorkspaceService,
 } from '@nx-turbo/api-db-entities';
-import { Task } from '@nx-turbo/api-models';
+import { Task } from '@prisma/client';
 
 @UseGuards(JwtAuthGuard)
 @Controller('executions')
@@ -203,7 +203,7 @@ export class ApiHttpExecutionsController {
       return {
         executionStatus: 'complete',
         commandStatus: execution.statusCode,
-        completedTasks: execution.tasks.getItems().map((t) => ({
+        completedTasks: execution.tasks.map((t) => ({
           ...t,
           url: '/task/' + t.id,
         })),
@@ -214,9 +214,7 @@ export class ApiHttpExecutionsController {
 
     const tasks = execution.tasks;
 
-    await tasks.init();
-
-    const completedTasks = tasks.getItems().filter((t) => t.isCompleted);
+    const completedTasks = tasks.filter((t) => t.isCompleted);
     const completedTaskIds = completedTasks.map((t) => t.id);
 
     const taskUrls = completedTaskIds.map((id) => '/task/' + id);
@@ -228,7 +226,7 @@ export class ApiHttpExecutionsController {
       };
     });
 
-    if (tasks.getItems().every((t) => t.isCompleted)) {
+    if (tasks.every((t) => t.isCompleted)) {
       await this.executionService.completeExecution(execution);
     }
 

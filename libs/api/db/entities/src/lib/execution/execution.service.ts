@@ -1,70 +1,62 @@
 import { Injectable } from '@nestjs/common';
-import { ExecutionEntity } from './execution.entity';
-import { InjectRepository } from '@mikro-orm/nestjs';
-import { EntityRepository } from '@mikro-orm/postgresql';
-import { RunGroupEntity } from '../run-group/run-group.entity';
-import { TaskEntity } from '../task/task.entity';
-import { Collection } from '@mikro-orm/core';
+import { prisma } from '../prisma';
+import { Execution, RunGroup } from '@prisma/client';
 
 @Injectable()
 export class ExecutionService {
-  constructor(
-    @InjectRepository(ExecutionEntity)
-    private readonly executionRepository: EntityRepository<ExecutionEntity>,
-    @InjectRepository(TaskEntity)
-    private readonly taskRepository: EntityRepository<TaskEntity>
-  ) {}
-
   async createExecution(param: {
-    runGroup: RunGroupEntity;
+    runGroup: RunGroup;
     command: string;
     tasks: any;
     maxParallel: number;
     isCompleted?: boolean;
-  }): Promise<ExecutionEntity> {
-    const executionEntity = new ExecutionEntity();
-    executionEntity.runGroup = param.runGroup;
-    executionEntity.command = param.command;
-    executionEntity.tasks = new Collection<TaskEntity>(
-      executionEntity,
-      (param.tasks || []).map((task) =>
-        this.taskRepository.create({ ...task, execution: executionEntity })
-      )
-    );
-    executionEntity.maxParallel = param.maxParallel;
-    executionEntity.isCompleted = param.isCompleted ?? false;
-
-    await this.executionRepository.persistAndFlush(executionEntity);
-
-    return executionEntity;
-  }
-
-  async findOne(id: string): Promise<ExecutionEntity | null> {
-    return this.executionRepository
-      .createQueryBuilder('execution')
-      .where({ id })
-      .getSingleResult();
-  }
-
-  async completeExecution(execution: ExecutionEntity): Promise<void> {
-    execution.isCompleted = true;
-    await this.executionRepository.upsert({
-      id: execution.id,
-      isCompleted: true,
+  }) {
+    return prisma.execution.create({
+      data: {
+        runGroup: { connect: { runGroup: param.runGroup.runGroup } },
+        command: param.command,
+        tasks: {
+          create: param.tasks || [],
+        },
+        maxParallel: param.maxParallel,
+        isCompleted: param.isCompleted ?? false,
+      },
+      include: {
+        tasks: true,
+        runGroup: true,
+      },
     });
   }
 
-  async findFirstIncomplete(runGroup: string): Promise<ExecutionEntity> {
-    return this.executionRepository.findOne({
-      runGroup: { runGroup },
-      isCompleted: false,
+  async findOne(id: string) {
+    return prisma.execution.findUnique({
+      where: { id },
+      include: { tasks: true, runGroup: true },
+    });
+  }
+
+  async completeExecution(execution: Execution): Promise<void> {
+    execution.isCompleted = true;
+
+    await prisma.execution.update({
+      where: { id: execution.id },
+      data: { isCompleted: true },
+    });
+  }
+
+  async findFirstIncomplete(runGroup: string) {
+    return prisma.execution.findFirst({
+      where: {
+        runGroup: { runGroup },
+        isCompleted: false,
+      },
     });
   }
 
   async setStatusCode(id: string, statusCode: number): Promise<void> {
-    await this.executionRepository.nativeUpdate(
-      { id },
-      { statusCode: statusCode }
-    );
+    await prisma.execution.update({
+      where: { id },
+      data: { statusCode },
+    });
   }
 }

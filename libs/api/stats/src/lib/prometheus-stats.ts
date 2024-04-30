@@ -4,8 +4,7 @@ import { Request } from 'express';
 import { InjectMetric } from '@willsoto/nestjs-prometheus';
 import { Histogram } from 'prom-client';
 import { Logger } from 'nestjs-pino';
-import { Task, Workspace } from '@nx-turbo/api-models';
-import { WorkspaceEntity } from '@nx-turbo/api-db-entities';
+import { Task, Workspace } from '@prisma/client';
 
 @Injectable()
 export class PrometheusStats extends Stats {
@@ -38,7 +37,7 @@ export class PrometheusStats extends Stats {
   }
 
   trackTaskExecutionTime(
-    workspace: WorkspaceEntity,
+    workspace: Workspace,
     task: Task,
     executionTime: number,
     savedTime: number
