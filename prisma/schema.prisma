@@ -1,0 +1,67 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Execution {
+  id             String   @id @default(uuid()) @db.VarChar(255)
+  command        String   @db.VarChar(255)
+  maxParallel    Int      @default(3) @map("max_parallel")
+  statusCode     Int      @default(0) @map("status_code")
+  isCompleted    Boolean  @default(false) @map("is_completed")
+  runGroup       String   @map("run_group_run_group") @db.VarChar(255)
+  runGroupEntity RunGroup @relation(fields: [runGroup], references: [runGroup], onDelete: NoAction, map: "execution_entity_run_group_run_group_foreign")
+  tasks          Task[]
+
+  @@map("execution_entity")
+}
+
+model mikro_orm_migrations {
+  id          Int       @id @default(autoincrement())
+  name        String?   @db.VarChar(255)
+  executed_at DateTime? @default(now()) @db.Timestamptz(6)
+}
+
+model RunGroup {
+  runGroup    String      @id @default(uuid()) @map("run_group") @db.VarChar(255)
+  branch      String?     @db.VarChar(255)
+  workspaceId String      @map("workspace_id") @db.VarChar(255)
+  isCompleted Boolean     @default(false) @map("is_completed")
+  executions  Execution[]
+  workspace   Workspace   @relation(fields: [workspaceId], references: [id], onDelete: NoAction, map: "run_group_entity_workspace_id_foreign")
+
+  @@map("run_group_entity")
+}
+
+model Task {
+  id            String    @id @default(uuid()) @db.VarChar(255)
+  taskId        String    @map("task_id") @db.VarChar(255)
+  projectName   String    @map("project_name") @db.VarChar(255)
+  target        String    @db.VarChar(255)
+  params        String    @db.VarChar(255)
+  configuration String?   @db.VarChar(255)
+  hash          String    @db.VarChar(255)
+  isCompleted   Boolean   @default(false) @map("is_completed")
+  startTime     String?   @map("start_time") @db.VarChar(255)
+  endTime       String?   @map("end_time") @db.VarChar(255)
+  cacheStatus   String    @default("cache-miss") @map("cache_status") @db.VarChar(255)
+  createdAt     String    @map("created_at") @db.VarChar(255)
+  updatedAt     String    @map("updated_at") @db.VarChar(255)
+  executionId   String    @map("execution_id") @db.VarChar(255)
+  execution     Execution @relation(fields: [executionId], references: [id], onDelete: NoAction, map: "task_entity_execution_id_foreign")
+
+  @@map("task_entity")
+}
+
+model Workspace {
+  id                         String     @id @default(uuid()) @db.VarChar(255)
+  name                       String     @db.VarChar(255)
+  distributed_builds_enabled Boolean    @default(true)
+  run_group_entity           RunGroup[]
+
+  @@map("workspace_entity")
+}

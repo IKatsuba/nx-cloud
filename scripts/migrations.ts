@@ -1,28 +1,28 @@
-import { MikroORM } from '@mikro-orm/core';
-import { NestFactory } from '@nestjs/core';
-import { AppModule } from '../apps/api/src/app/app.module';
-import { Logger } from 'nestjs-pino';
+import { PrismaClient } from '@prisma/client';
+import { execSync } from 'child_process';
 
-(async () => {
-  const app = await NestFactory.create(AppModule, {
-    autoFlushLogs: true,
-    bufferLogs: true,
-  });
+// check if old database exists
+const prisma = new PrismaClient();
 
-  const logger = app.get(Logger);
+async function main() {
+  const anyMikroOrmMigration = await prisma.mikro_orm_migrations.findFirst();
 
-  app.useLogger(logger);
+  if (anyMikroOrmMigration) {
+    console.log('Detect MicroORM migration');
+    console.log(`Skip Prisma migration '0_init'`);
+    const data =
+      ((await prisma.$queryRaw`select * from _prisma_migrations where migration_name = ${'0_init'}`) ??
+        []) as any[];
 
-  logger.log('Starting migrations...');
+    if (data.length) {
+      console.log('Migration 0_init already applied');
+    } else {
+      execSync('npx prisma migrate resolve --applied 0_init');
+    }
+  }
 
-  const orm = app.get(MikroORM);
+  console.log('Run Prisma migration');
+  execSync('npx prisma migrate deploy');
+}
 
-  const migrator = orm.getMigrator();
-  await migrator.up();
-
-  logger.log('Migrations finished.');
-
-  await orm.close(true);
-})().catch((e) => {
-  console.error(e);
-});
+main();
