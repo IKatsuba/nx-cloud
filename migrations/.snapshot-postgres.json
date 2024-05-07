@@ -328,6 +328,13 @@
       "schema": "public",
       "indexes": [
         {
+          "columnNames": ["hash"],
+          "composite": false,
+          "keyName": "task_entity_hash_index",
+          "primary": false,
+          "unique": false
+        },
+        {
           "keyName": "task_entity_pkey",
           "columnNames": ["id"],
           "composite": false,

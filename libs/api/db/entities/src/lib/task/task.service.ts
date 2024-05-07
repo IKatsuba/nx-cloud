@@ -27,24 +27,10 @@ export class TaskService {
     });
   }
 
-  async findTaskWithoutCache(workspaceId: string, hash: string) {
-    return this.taskRepository.findOne(
-      {
-        execution: {
-          runGroup: {
-            workspace: {
-              id: workspaceId,
-            },
-          },
-        },
-        hash,
-        cacheStatus: 'cache-miss',
-      },
-      {
-        orderBy: {
-          startTime: 'desc',
-        },
-      }
-    );
+  async findTaskWithoutCache(hash: string) {
+    return this.taskRepository.findOne({
+      hash,
+      cacheStatus: 'cache-miss',
+    });
   }
 }

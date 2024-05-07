@@ -78,30 +78,30 @@ export class RunsController {
 
       const workspace = await this.workspaceService.getWorkspace(workspaceId);
 
-      for (const task of data.tasks) {
-        const prevTask =
-          task.cacheStatus === 'cache-miss'
-            ? task
-            : (await this.taskService.findTaskWithoutCache(
-                workspaceId,
-                task.hash
-              )) ?? task;
+      Promise.all(
+        data.tasks.map(async (task) => {
+          const prevTask =
+            task.cacheStatus === 'cache-miss'
+              ? task
+              : (await this.taskService.findTaskWithoutCache(task.hash)) ??
+                task;
 
-        const executionTime =
-          Date.parse(task.endTime) - Date.parse(task.startTime);
+          const executionTime =
+            Date.parse(task.endTime) - Date.parse(task.startTime);
 
-        const prevExecutionTime =
-          Date.parse(prevTask.endTime) - Date.parse(prevTask.startTime);
+          const prevExecutionTime =
+            Date.parse(prevTask.endTime) - Date.parse(prevTask.startTime);
 
-        const diff = prevExecutionTime - executionTime;
+          const diff = prevExecutionTime - executionTime;
 
-        await this.stats?.trackTaskExecutionTime?.(
-          workspace,
-          task,
-          executionTime,
-          diff
-        );
-      }
+          await this.stats?.trackTaskExecutionTime?.(
+            workspace,
+            task,
+            executionTime,
+            diff
+          );
+        })
+      ).catch(console.error);
 
       const runGroup =
         (await this.runGroupService.findOne(data.run.runGroup)) ??

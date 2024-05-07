@@ -3,6 +3,7 @@
   "version": "0.0.0-development",
   "license": "MIT",
   "scripts": {
+    "migrations:create": "ts-node -r tsconfig-paths/register -P scripts/tsconfig.json scripts/create-migrations.ts",
     "migrations:run": "ts-node -r tsconfig-paths/register -P scripts/tsconfig.json scripts/migrations.ts",
     "start:prod": "npm run migrations:run && node dist/apps/api/main.js"
   },
