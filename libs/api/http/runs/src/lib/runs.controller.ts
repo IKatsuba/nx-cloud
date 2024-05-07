@@ -7,6 +7,7 @@ import {
 } from '@nx-turbo/api-auth';
 import {
   ExecutionService,
+  prisma,
   RunGroupService,
   TaskService,
   WorkspaceService,
@@ -78,37 +79,57 @@ export class RunsController {
 
       const workspace = await this.workspaceService.getWorkspace(workspaceId);
 
-      for (const task of data.tasks) {
-        const prevTask =
-          task.cacheStatus === 'cache-miss'
-            ? task
-            : (await this.taskService.findTaskWithoutCache(
-                workspaceId,
-                task.hash
-              )) ?? task;
+      const query = data.tasks
+        .map(
+          (task) => `
+select * from "task_entity" where "execution_id" in (select id
+                                                     from "execution_entity"
+                                                     where "run_group_run_group" in (select id
+                                                                                     from "run_group_entity"
+                                                                                     where "workspace_id" = '${workspaceId}'))
+  and "cache_status" = 'cache-miss'
+  and "hash" = '${task.hash}' limit 1
+`
+        )
+        .join('\nunion all\n');
 
-        const executionTime =
-          Date.parse(task.endTime) - Date.parse(task.startTime);
+      const prevTasks = await prisma.$queryRawUnsafe<Task[]>(query);
 
-        const prevExecutionTime =
-          Date.parse(prevTask.endTime) - Date.parse(prevTask.startTime);
+      console.log('prevTasks', prevTasks);
 
-        const diff = prevExecutionTime - executionTime;
+      await Promise.all(
+        data.tasks.map(async (task) => {
+          const prevTask =
+            task.cacheStatus === 'cache-miss'
+              ? task
+              : (await this.taskService.findTaskWithoutCache(
+                  workspaceId,
+                  task.hash
+                )) ?? task;
 
-        await this.stats?.trackTaskExecutionTime?.(
-          workspace,
-          task,
-          executionTime,
-          diff
-        );
-      }
+          const executionTime =
+            Date.parse(task.endTime) - Date.parse(task.startTime);
+
+          const prevExecutionTime =
+            Date.parse(prevTask.endTime) - Date.parse(prevTask.startTime);
+
+          const diff = prevExecutionTime - executionTime;
+
+          await this.stats?.trackTaskExecutionTime?.(
+            workspace,
+            task,
+            executionTime,
+            diff
+          );
+        })
+      );
 
       const runGroup =
         (await this.runGroupService.findOne(data.run.runGroup)) ??
         (await this.runGroupService.createRunGroup({
           runGroup: data.run.runGroup,
           branch: data.run.branch,
-          workspace,
+          workspaceId,
           isCompleted: true,
         }));
 

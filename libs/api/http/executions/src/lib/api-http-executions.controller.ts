@@ -51,7 +51,7 @@ export class ApiHttpExecutionsController {
     await this.runGroupService.createRunGroup({
       runGroup: body.runGroup,
       branch: body.branch,
-      workspace,
+      workspaceId,
     });
 
     return {
@@ -90,7 +90,7 @@ export class ApiHttpExecutionsController {
       (await this.runGroupService.createRunGroup({
         runGroup: body.runGroup,
         branch: body.branch,
-        workspace,
+        workspaceId,
       }));
 
     if (!runGroup) {

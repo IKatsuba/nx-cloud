@@ -8,15 +8,16 @@ datasource db {
 }
 
 model Execution {
-  id          String   @id @default(uuid()) @db.VarChar(255)
+  id          String   @id @unique @default(uuid()) @db.VarChar(255)
   command     String   @db.VarChar(255)
   maxParallel Int      @default(3) @map("max_parallel")
   statusCode  Int      @default(0) @map("status_code")
   isCompleted Boolean  @default(false) @map("is_completed")
   runGroupId  String   @map("run_group_run_group") @db.VarChar(255)
-  runGroup    RunGroup @relation(fields: [runGroupId], references: [runGroup], onDelete: NoAction, map: "execution_entity_run_group_run_group_foreign")
+  runGroup    RunGroup @relation(fields: [runGroupId], references: [runGroup], onDelete: Cascade, map: "execution_entity_run_group_run_group_foreign")
   tasks       Task[]
 
+  @@index([runGroupId])
   @@map("execution_entity")
 }
 
@@ -27,18 +28,18 @@ model mikro_orm_migrations {
 }
 
 model RunGroup {
-  runGroup    String      @id @default(uuid()) @map("run_group") @db.VarChar(255)
+  runGroup    String      @id @unique @default(uuid()) @map("run_group") @db.VarChar(255)
   branch      String?     @db.VarChar(255)
   workspaceId String      @map("workspace_id") @db.VarChar(255)
   isCompleted Boolean     @default(false) @map("is_completed")
   executions  Execution[]
-  workspace   Workspace   @relation(fields: [workspaceId], references: [id], onDelete: NoAction, map: "run_group_entity_workspace_id_foreign")
+  workspace   Workspace   @relation(fields: [workspaceId], references: [id], onDelete: Cascade, map: "run_group_entity_workspace_id_foreign")
 
   @@map("run_group_entity")
 }
 
 model Task {
-  id            String    @id @default(uuid()) @db.VarChar(255)
+  id            String    @id @unique @default(uuid()) @db.VarChar(255)
   taskId        String    @map("task_id") @db.VarChar(255)
   projectName   String    @map("project_name") @db.VarChar(255)
   target        String    @db.VarChar(255)
@@ -52,13 +53,16 @@ model Task {
   createdAt     DateTime  @default(now()) @map("created_at")
   updatedAt     DateTime  @updatedAt @map("updated_at")
   executionId   String    @map("execution_id") @db.VarChar(255)
-  execution     Execution @relation(fields: [executionId], references: [id], onDelete: NoAction, map: "task_entity_execution_id_foreign")
+  execution     Execution @relation(fields: [executionId], references: [id], onDelete: Cascade, map: "task_entity_execution_id_foreign")
 
+  @@index([taskId, executionId])
+  @@index([executionId])
+  @@index([hash])
   @@map("task_entity")
 }
 
 model Workspace {
-  id                       String     @id @default(uuid()) @db.VarChar(255)
+  id                       String     @id @unique @default(uuid()) @db.VarChar(255)
   name                     String     @db.VarChar(255)
   distributedBuildsEnabled Boolean    @default(true) @map("distributed_builds_enabled")
   runGroups                RunGroup[]

@@ -1,18 +1,17 @@
 import { Injectable } from '@nestjs/common';
 import { prisma } from '../prisma';
-import { Workspace } from '@prisma/client';
 
 @Injectable()
 export class RunGroupService {
   async createRunGroup({
     runGroup,
     branch,
-    workspace,
+    workspaceId,
     isCompleted,
   }: {
     runGroup: string;
     branch: string;
-    workspace: Workspace;
+    workspaceId: string;
     isCompleted?: boolean;
   }) {
     return prisma.runGroup.create({
@@ -22,7 +21,7 @@ export class RunGroupService {
         isCompleted: isCompleted ?? false,
         workspace: {
           connect: {
-            id: workspace.id,
+            id: workspaceId,
           },
         },
       },

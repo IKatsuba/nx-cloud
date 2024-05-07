@@ -1,7 +1,6 @@
 import { readJson, runNxCommandAsync, tmpProjPath } from '@nx/plugin/testing';
 import { addPackageToPackageJson, createTestProject } from './utils';
 import { rmSync } from 'fs';
-import { execSync } from 'child_process';
 import { uniq } from '@nx/plugin/src/utils/testing-utils/nx-project';
 
 describe('api e2e', () => {
@@ -9,6 +8,13 @@ describe('api e2e', () => {
     createTestProject();
 
     addPackageToPackageJson('nx-cloud@16.4.0');
+
+    await runNxCommandAsync(`g nx-cloud:init`, {
+      env: {
+        ...process.env,
+        NX_CLOUD_API: 'http://localhost:3000/',
+      },
+    });
   }, 120000);
 
   afterAll(() => {
@@ -19,14 +25,6 @@ describe('api e2e', () => {
   });
 
   it('should configure Nx Cloud', async () => {
-    execSync(`npx nx generate nx-cloud:init`, {
-      env: {
-        ...process.env,
-        NX_CLOUD_API: 'http://localhost:3000/',
-      },
-      cwd: tmpProjPath(),
-    });
-
     const nxJson = readJson('nx.json');
 
     expect(nxJson.tasksRunnerOptions).toEqual({
@@ -41,13 +39,6 @@ describe('api e2e', () => {
   });
 
   it('should get build results from Nx Cloud', async () => {
-    await runNxCommandAsync(`g nx-cloud:init`, {
-      env: {
-        ...process.env,
-        NX_CLOUD_API: 'http://localhost:3000/',
-      },
-    });
-
     const libName = uniq('lib');
 
     await runNxCommandAsync(
