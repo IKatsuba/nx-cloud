@@ -1,5 +1,6 @@
 import {
   Entity,
+  Index,
   LoadStrategy,
   ManyToOne,
   PrimaryKey,
@@ -29,6 +30,7 @@ export class TaskEntity implements Task {
   @Property({ nullable: true })
   configuration: string;
 
+  @Index()
   @Property()
   hash: string;
 
